@@ -10,7 +10,16 @@ public class Exercises {
 	 sleepIn(false, true) → true
 	 */
 	public boolean sleepIn(boolean weekday, boolean vacation) {
+
+	if (weekday) {
+		if (vacation) {
+			return true;
+		}
 		return false;
+	}
+	return true;
+	
+	
 	}
 
 	/*
@@ -22,7 +31,10 @@ public class Exercises {
 	 monkeyTrouble(true, false) → false
 	 */
 	public boolean monkeyTrouble(boolean aSmile, boolean bSmile) {
-		return false;
+	if (aSmile == bSmile) {
+		return true;
+	}
+	return false;
 	}
 
 	/*
@@ -32,7 +44,10 @@ public class Exercises {
 	 sumDouble(2, 2) → 8
 	 */
 	public int sumDouble(int a, int b) {
-		return 0;
+		if (a == b) {
+			return (a + b) * 2;
+		}
+		return a+=b;
 	}
 
 	/*
@@ -44,9 +59,15 @@ public class Exercises {
 	 diff21(22) → 2
 	 diff21(-10) → 31
 	 */
-	public int diff21(int n) {
-		return 0;
-	}
+	public int diff21(int n) 
+	{
+		if (n > 21 ) {
+			return (n - 21) * 2;
+		}
+				return Math.abs(n - 21);
+		}
+
+
 
 	/*
 	 5. We have a loud talking parrot. The "hour" parameter is the current hour time in the range 0..23.
