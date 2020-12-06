@@ -199,9 +199,40 @@ public class Exercises {
 	 sum13([1, 2, 2, 1, 13, 3]) → 6
 	 sum13([1, 2, 2, 1, 13, 3, 4]) → 10
 	 */
-	public int sum13(int[] nums) {
-		return 0;
+	public int sum13(int[] nums) 
+	{
+	
+		int luckySum = 0;
+		for (int i = 0; i < nums.length; i++)
+		{
+	
+//			if (nums[i] == 13 && nums[i] == nums[nums.length - 1])
+//			{		
+//				return luckySum += 0;
+//		
+//			}
+//			else if (nums[i] == 13 && nums[i + 1] != 13)
+//			{
+//				return luckySum += 0;
+//			}
+			
+			if (nums[i] !=13)
+				
+				{
+				luckySum += nums[i];
+				}
+			else
+			{
+				i++;
+			}
+		}
+		return luckySum;	
+		
 	}
+		
+		
+	
+	
 
 	/*
 	 13. Given an array of ints, return true if the array contains a 2 next to a 2 somewhere.
@@ -251,15 +282,23 @@ public class Exercises {
 	 */
 	public boolean sum28(int[] nums) 
 	{
-		int addTheTwos = 0; 
+		int twoCount= 0; 
 		for (int i = 0; i <= nums.length - 1; i++)
 		{
 			if(nums[i] ==2)
 			{
-				addTheTwos +=2;
+				twoCount +=1;
+			}
+		}
+		if (twoCount == 4)
+			{
+			return true;
 			}
 		
 		return false;
+		
 	}
+	
+	
 
 }
