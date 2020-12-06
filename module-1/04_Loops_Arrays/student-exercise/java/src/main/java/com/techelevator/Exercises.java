@@ -203,30 +203,46 @@ public class Exercises {
 	{
 	
 		int luckySum = 0;
+//		for (int i = 0; i < nums.length; i++)
+//		{
+//	
+////			if (nums[i] == 13 && nums[i] == nums[nums.length - 1])
+////			{		
+////				return luckySum += 0;
+////		
+////			}
+////			else if (nums[i] == 13 && nums[i + 1] != 13)
+////			{
+////				return luckySum += 0;
+//			}
+//			
+//			//if (nums[i] !=13)
+//				
+//				{
+//				luckySum += nums[i];
+//				}
+////			else
+////			{
+////				i++;
+////			}
+//		}
+//		return luckySum;
+		
 		for (int i = 0; i < nums.length; i++)
 		{
 	
-//			if (nums[i] == 13 && nums[i] == nums[nums.length - 1])
-//			{		
-//				return luckySum += 0;
-//		
-//			}
-//			else if (nums[i] == 13 && nums[i + 1] != 13)
-//			{
-//				return luckySum += 0;
-//			}
-			
-			if (nums[i] !=13)
-				
-				{
-				luckySum += nums[i];
-				}
-			else
-			{
-				i++;
+			if (nums[i] == 13)
+			{		
+				 luckySum += 0;
+				 i++;
+		
 			}
+			
+			else luckySum += nums[i];
 		}
-		return luckySum;	
+			return luckySum;
+		
+		
 		
 	}
 		
