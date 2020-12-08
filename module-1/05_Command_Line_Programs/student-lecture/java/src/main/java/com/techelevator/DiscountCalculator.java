@@ -16,17 +16,34 @@ class DiscountCalculator {
         // Prompt the user for a discount amount
         // The answer needs to be saved as a double
         System.out.print("Enter the discount amount (w/out percentage): ");
+		double discount = Double.parseDouble(scanner.nextLine()) / 100.0;
 
+		System.out.println();
+		
+		// Prompt the user for a series of prices
+		System.out.print("Please provide a series of prices (space separated): ");
+		String prices = scanner.nextLine();
 
+		// Split the string up into separate values
+		String[] priceArray = prices.split(" ");
 
-        // Prompt the user for a series of prices
-        System.out.print("Please provide a series of prices (space separated): ");
+		System.out.println();
+		
+		for (int i = 0; i < priceArray.length; i++)
+		{
+			// Read the individual value as a decimal
+			double originalPrice = Double.parseDouble(priceArray[i]);
 
+			// Cast the discount value to a decimal to allow the calculation
+			double amountOff = originalPrice * (double) discount;
 
+			// Calculate the sale price
+			double salePrice = originalPrice - amountOff;
 
+			System.out.println("Original Price:     $" + originalPrice + "      Sale Price: $" + salePrice);
+		}
 
-
-
-    }
+		scanner.close();
+	}
 
 }
