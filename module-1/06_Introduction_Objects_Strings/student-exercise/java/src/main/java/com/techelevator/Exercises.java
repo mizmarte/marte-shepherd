@@ -64,8 +64,11 @@ public class Exercises {
 	 extraEnd("ab") → "ababab"
 	 extraEnd("Hi") → "HiHiHi"
 	 */
-	public String extraEnd(String str) {
-		return null;
+	public String extraEnd(String str) 
+	{
+		int len = str.length();
+		String temp = str.substring(len-2, len);
+		return (temp + temp + temp);
 	}
 
 	/*
@@ -110,7 +113,10 @@ public class Exercises {
 	 */
 	public String withoutEnd(String str) 
 	{
-		return (str.substring(1, str.length() - 1));
+		
+		return str.substring(1,str.length()-1);
+			
+
 	}
 
 	/*
@@ -408,18 +414,18 @@ public class Exercises {
 	public String stringBits(String str) 
 	
 	{
-		
-		String string = "";
-		for(int i = 0; i < str.length(); i++)
-		{
-			if(i %2 == 0)
-			{
-				string += str.charAt(i);		
-		
-			}
-			return string;
-		}
-		
+		 int len = str.length();
+	
+		   String temp = "";
+		    
+		   for (int i = 0; i < len; i = i + 2) 
+		   {
+		     temp += str.charAt(i);
+		 
+		   }
+
+		   return temp;
+
 	}
 	
 
