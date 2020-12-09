@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.util.Scanner;
+
 public class Lecture {
 
 	public static void main(String[] args) {
@@ -14,7 +16,8 @@ public class Lecture {
 		 * is not the case for most classes */
 
 		/* create an new instance of String using a literal */
-
+			String name = "Gregor Dzierzon";
+			
 		
 		System.out.println();
 		System.out.println("******************************");
@@ -22,7 +25,28 @@ public class Lecture {
 		System.out.println("******************************");
 		System.out.println();
 
-
+		String firstName = name.substring(0,6);
+		System.out.println(firstName);
+		
+		String lastName = name.substring(7);
+		System.out.println(lastName);
+		
+		
+		int index = name.indexOf(" ");
+		
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Enter your first and last name: ");
+		name = scanner.nextLine();
+		System.out.println("Full Name: " + firstName);
+		firstName = name.substring(0,index);
+		System.out.println("First Name: "+ name);
+		
+		lastName = name.substring(index + 1);
+		System.out.println("Last Name: " + lastName);
+		
+		int firstSpaceIndex = name.indexOf(" ");
+		System.out.println("Space found at " + firstSpaceIndex);
+		
 		/* Other commonly used methods:
 		 *
 		 * endsWith
@@ -46,24 +70,24 @@ public class Lecture {
 
 		/* Double equals will compare to see if the two variables, hello1 and
 		 * hello2 point to the same object in memory. Are they the same object? */
-		if (hello1 == hello2) {
-			System.out.println("They are equal!");
-		} else {
-			System.out.println(hello1 + " is not equal to " + hello2);
-		}
-
-		String hello3 = hello1;
-		if (hello1 == hello3) {
-			System.out.println("hello1 is the same reference as hello3");
-		}
-
-		/* So, to compare the values of two objects, we need to use the equals method.
-		 * Every object type has an equals method */
-		if (hello1.equals(hello2)) {
-			System.out.println("They are equal!");
-		} else {
-			System.out.println(hello1 + " is not equal to " + hello2);
+//		if (hello1 == hello2) {
+//			System.out.println("They are equal!");
+//		} else {
+//			System.out.println(hello1 + " is not equal to " + hello2);
+//		}
+//
+//		String hello3 = hello1;
+//		if (hello1 == hello3) {
+//			System.out.println("hello1 is the same reference as hello3");
+//		}
+//
+//		/* So, to compare the values of two objects, we need to use the equals method.
+//		 * Every object type has an equals method */
+//		if (hello1.equals(hello2)) {
+//			System.out.println("They are equal!");
+//		} else {
+//			System.out.println(hello1 + " is not equal to " + hello2);
 		}
 
 	}
-}
+
