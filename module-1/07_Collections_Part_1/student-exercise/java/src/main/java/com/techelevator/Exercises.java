@@ -104,7 +104,18 @@ public class Exercises {
 	public Integer findLargest(List<Integer> integerList) 
 
 	{
-		 return Collections.max(integerList);
+		
+		
+		int largestValue = 0;
+			
+		for (Integer number: integerList)
+		{
+			if (number > largestValue)
+			{
+				largestValue = number;
+			}
+		}
+		return largestValue;
 	}
 
 		
@@ -143,13 +154,16 @@ public class Exercises {
 	 */
 	public boolean foundIntTwice(List<Integer> integerList, int intToFind) 
 	{
-	
-		for(Integer i: intToFind)
+		int count = 0;
+		for (Integer number: integerList)
 		{
-			boolean duplicates = i.
-		}
+			if (number == intToFind)
+			{
+				count++;
+			}
 		
-		return false;
+		}
+		return count >= 2;
 	}
 
 	/*
@@ -190,7 +204,7 @@ public class Exercises {
 			}
 	
 		}
-	return fBList;	
+		return fBList;	
 	}
 
 	/*
@@ -200,22 +214,32 @@ public class Exercises {
 	 list to the new list before returning it.
 	 interleaveLists( [1, 2, 3], [4, 5, 6] )  ->  [1, 4, 2, 5, 3, 6]
 	 */
-	public List<Integer> interleaveLists(List<Integer> listOne, List<Integer> listTwo) 
-	{
-		List<Integer> intleaveLists = new ArrayList<String>();
-			for(Integer iOne, jTwo: listOne,listTwo)
-		
-		
-	}
-		
-		
-		
-		
+	public List<Integer> interleaveLists(List<Integer> listOne, List<Integer> listTwo)
+	{ 
 	
-
-
+		List<Integer> newList = new ArrayList<>();
+		
+		for (int i = 0; i <Math.max (listOne.size() , listTwo.size()); i++)
+		{
+				
+			if (listOne.size() > i)
+		
+			{
+				newList.add(listOne.get(i));
+			}
+			if (listTwo.size() > i)
+			{	
+				newList.add(listTwo.get(i));
+			}
+			
+		}	
+	return newList;
+	}
+	
+}
 
 //loop through both at the same time
 		//read first from left then from right
 		//figure out which list is bigger loop through all the rows and do an if state ment to see if you add through all of the rows
+		
 		
