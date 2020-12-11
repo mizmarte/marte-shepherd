@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Exercises {
@@ -33,8 +34,31 @@ public class Exercises {
 	 * animalGroupName("elephants") -> "unknown"
 	 *
 	 */
-	public String animalGroupName(String animalName) {
-		return null;
+	public String animalGroupName(String animalName) 
+	{
+		
+		Map<String, String> animalGroups = new LinkedHashMap<String, String>();
+		
+	
+		
+		animalGroups.put("rhino", "Crash");
+		animalGroups.put("giraffe", "Tower");
+		animalGroups.put("elephant", "Herd");
+		animalGroups.put("lion", "Pride");
+		animalGroups.put("crow", "Murder");
+		animalGroups.put("pigeon", "Kit");
+		animalGroups.put("flamingo", "Pat");
+		animalGroups.put("deer", "Herd");
+		animalGroups.put("dog", "Pack");
+		animalGroups.put("crocodile", "Float");
+		
+		if(!animalGroups.containsKey(animalName))
+		{
+			return "unknown";
+		}
+	
+		return animalGroups.get(animalName);	
+	
 	}
 
 	/*
