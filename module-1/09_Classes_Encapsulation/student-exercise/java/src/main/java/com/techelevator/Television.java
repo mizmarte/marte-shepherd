@@ -8,21 +8,22 @@ public class Television
 	private int currentVolume =2;
 	
 	
-	public boolean IsOn()
+	public boolean isOn()
 	{	
-		return this.isOn;
+		return isOn;
 		
 	}
-	public int getCurrentChannel()
+	public boolean isOff()
 	{
-		currentChannel = 3;
-		
+		return !isOn;
+	}
+	public int getCurrentChannel()
+
+	{	
 		return currentChannel;
 	}
 	public int getCurrentVolume()
 	{
-		currentVolume = 2;
-		
 		return currentVolume;
 	}
 	public void turnOff()
@@ -48,11 +49,15 @@ public class Television
 	    			
 	    		{
 	    			
-	    		this.currentChannel = this.currentChannel + 1;
+	    			currentChannel = currentChannel + 1;
 	    		
 	    		}
 	    	
-	        	this.currentChannel = 3;
+	    		else
+	    		{
+	    			currentChannel = 3;
+	    			
+	    		}
 	    	}	
 
 	    }
@@ -62,11 +67,14 @@ public class Television
 	 
 		{
 			 
-			 this.currentChannel = this.currentChannel - 1;
+			 currentChannel = currentChannel - 1;
 	 		
 	 	}
+		 else if (isOn)
+		 {
+			 this.currentChannel = 18; 
+		 }
  	
-     	this.currentChannel = 18;
 	 }
 	 public void raiseVolume()
 	    {
