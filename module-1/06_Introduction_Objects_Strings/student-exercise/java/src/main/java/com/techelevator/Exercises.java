@@ -453,19 +453,7 @@ public class Exercises {
 	 last2("xaxxaxaxx") → 1
 	 last2("axxxaaxx") → 2
 	 */
-	public int last2(String str) 
-	
-	{
-		int count = 0;
-		for(int i = 0; i < str.length() - 2; i++)
-		{
-			if(str.substring(i, i + 2).contentEquals(str.substring(str.length() - 2)))
-					{
-				count++;
-					}
-		}
-		return count;
-	}
+
 
 	/*
 	 Given a string, return a version where all the "x" have been removed. Except an "x" at the very start or end
