@@ -1,6 +1,6 @@
 package com.techelevator.farm;
 
-public class FarmAnimal
+public class FarmAnimal implements Singable;
 {
 	private String name;
 	private String sound;
@@ -10,7 +10,15 @@ public class FarmAnimal
 		this.name = name;
 		this.sound = sound;
 	}
-
+	public FarmAnimal()
+	{
+//		call a different constructor with different signature
+		
+		this("Cow","moo!");
+//		so that I don't repeat myself
+//		this.name = "Cow";
+//		this.sound = "moo!";
+	}
 	public String getName()
 	{
 		return name;

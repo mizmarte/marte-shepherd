@@ -2,6 +2,7 @@ package com.techelevator.review;
 
 public class Calculator
 {
+
 	// overloading is creating multiple functions
 	// with the same name, but different signatures
 	
@@ -19,4 +20,5 @@ public class Calculator
 	{
 		return a + " " + b;
 	}
+	
 }

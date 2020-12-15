@@ -7,12 +7,35 @@ public class OldMacdonald
 {
 	public static void main(String[] args)
 	{
+		List<Singable> animals = new ArrayList<Singable>();
+		animals.add(new Chicken());
+		animals.add(new Cow());
+		animals.add(new Tractor());
 
-		// add logic to sing about the farm
+		
+		for (Singable thing: farmThings)
+		{
+			singVerse(thing);
+		}
 
-	}
-
-	public static void singVerse(FarmAnimal animal)
+//		// add logic to sing about the farm
+//		FarmAnimal pig = new FarmAnimal("Pig", "oink");
+//		Chicken chicken = new Chicken();
+//		
+//		System.out.println(pig.getName() + " says " + pig.getSound());
+//		System.out.println(chicken.getName() + " says " + chicken.getSound());
+//		chicken.layEgg();
+//		//implicit conversion
+//		//because a chicken is a farm animal
+//		FarmAnimal animal = chicken;
+//		System.out.println(animal.getName());
+//		//animal doesn't know that layEgg() is available
+//		//explicit conversion we need to covert the animal to a chicken
+//		//because not every animal IS a chicken
+//		Chicken c2 = (chicken)animal;
+//		c2.layEgg();
+	}	
+	public static void singVerse(Singable animal)
 	{
 		String name = animal.getName();
 		String sound = animal.getSound();
@@ -25,4 +48,14 @@ public class OldMacdonald
 		System.out.println();
 
 	}
+	public static void cowDemo()
+	{
+		
+	}
+	public static void chickenDemo ()
+	{
+		
+	}
+	
+
 }
