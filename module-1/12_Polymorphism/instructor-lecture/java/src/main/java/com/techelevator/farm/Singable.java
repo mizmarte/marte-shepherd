@@ -4,4 +4,6 @@ public interface Singable
 {
 	String getName();
 	String getSound();
+	
+	
 }
