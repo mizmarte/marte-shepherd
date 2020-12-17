@@ -27,7 +27,7 @@ public class Application {
         
         auction.buyNow(bid);
         
-        auction.placeBid(newBid("John", 20));
+        auction.placeBid(new Bid("John", 20));
 
     }
 }

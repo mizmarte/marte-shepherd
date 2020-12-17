@@ -19,12 +19,18 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LectureTest {
+	@Test
+	public void aaa_the_irst_someTest()
+	{
+		System.out.println("I've added a new unit test");
+	}
 
 	/* If a method is annotated with @Before, it will be executed immediately prior to every test.
 	 * It is intended to be used when there is a repetitive setup (i.e. "Arrange") task that is
 	 * performed by several tests */
 	@Before
-	public void setup() {
+	
+public void setup() {
 		System.out.println("setup");
 	}
 

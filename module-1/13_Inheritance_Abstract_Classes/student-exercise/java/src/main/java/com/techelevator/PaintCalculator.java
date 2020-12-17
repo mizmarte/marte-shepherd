@@ -12,8 +12,8 @@ class PaintCalculator {
 
     public static void main(String[] args) {
 
-        // Step One:
-        //List<Wall> walls = new ArrayList<Wall>();
+         //Step One:
+        List<Wall> walls = new ArrayList<Wall>();
 
         while (true) {
             System.out.println("[1] Add a wall");
@@ -24,8 +24,8 @@ class PaintCalculator {
             System.out.println();
 
             if (userChoice.equals("1")) {
-                // Step One:
-                // Wall newWall = null;
+                //Step One:
+                Wall newWall = null;
 
                 System.out.println("What's the name of the new wall?");
                 String name = userInput.nextLine();
