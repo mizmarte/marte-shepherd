@@ -77,9 +77,11 @@ public abstract class FaceCard extends Card
 	public String getCardFace()
 	{
         StringBuilder builder = new StringBuilder();
+        //ternary operator - in line if statement
         String top = faceValue.length() == 1
                     ? faceValue + " "
                     : faceValue;
+        
         String bottom = faceValue.length() == 1
                         ? " " + faceValue
                         : faceValue;
