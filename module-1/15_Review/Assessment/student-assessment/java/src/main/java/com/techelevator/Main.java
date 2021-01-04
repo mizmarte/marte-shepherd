@@ -50,13 +50,21 @@ public class Main {
 //		System.out.println(test2.age() + " years");
 //		System.out.println(test2.isECheckRequired(2021));
 	
-		Car test3 = new Car(2015, "Audi A5", false);
-		System.out.println(test3.getYear());
-		System.out.println(test3.getMake());
-		System.out.println(test3.isClassicCar());
-		System.out.println(test3.age() + " years");
-		System.out.println(test3.isECheckRequired(2021));
-		System.out.println(test3.toString());
+//		Car test3 = new Car(2015, "Audi A5", false);
+//		System.out.println(test3.getYear());
+//		System.out.println(test3.getMake());
+//		System.out.println(test3.isClassicCar());
+//		System.out.println(test3.age() + " years");
+//		System.out.println(test3.isECheckRequired(2021));
+//		System.out.println(test3.toString());
+		
+		TellerMachine cashMoney = new TellerMachine("Ray-Ray",1200.00,575.01);
+		System.out.println(cashMoney.getManufacturer());
+		System.out.println(cashMoney.getDeposits());
+		System.out.println(cashMoney.getWithdrawals());
+		System.out.println(cashMoney.balance());
+		System.out.println(cashMoney.isThisCardValid("399999999876"));
+		System.out.println(cashMoney.toString());
 	
 	}
 			
