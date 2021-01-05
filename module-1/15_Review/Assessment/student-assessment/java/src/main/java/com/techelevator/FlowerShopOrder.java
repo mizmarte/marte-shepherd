@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import java.math.BigDecimal;
+
 //Basic,0
 //Elite,12
 //Elegant,24
@@ -11,7 +13,7 @@ public class FlowerShopOrder
 {
 	private String bouquetType;
 	private int numberOfRoses;
-	private double subtotal;
+	
 	
 	//getters
 		public String getBouquetType()
@@ -22,6 +24,13 @@ public class FlowerShopOrder
 		{
 			return numberOfRoses;
 		}
+//		derived
+		public double getSubtotal()
+		{
+			double subtotal = 19.99 + (getNumberOfRoses() * 2.99);
+			
+			return subtotal;
+		}
 		
 	//constructor
 		public FlowerShopOrder(String bouquetType, int numberOfRoses)
@@ -30,48 +39,43 @@ public class FlowerShopOrder
 			this.numberOfRoses = numberOfRoses;
 		}
 	//method
-		public double subtotal()
-		{
-			subtotal = 19.99 + (getNumberOfRoses() * 2.99);
-			
-			return subtotal;
-		}
+
 		
 		boolean sameDayDelivery;
-//		String zipCode;
-//		zipCodeInt = Integer.parseInt(zipCode);
-		int zipCode;
+		String zipCode;
+		int zipCodeInt = Integer.parseInt(zipCode);
+
 		double deliveryTotal;
-		public double deliveryTotal(boolean sameDayDelivery, int zipCode)
+		public double deliveryTotal(boolean sameDayDelivery, String zipCode)
 		{
 			if (sameDayDelivery == true)
 			{
-				if (zipCode >= 20000 && zipCode <= 29999)
+				if (zipCodeInt >= 20000 && zipCodeInt <= 29999)
 				{
 					return deliveryTotal = 9.98;
 				}
-				else if (zipCode >= 30000 && zipCode <= 39999) 
+				else if (zipCodeInt >= 30000 && zipCodeInt <= 39999) 
 				{
 					return deliveryTotal = 12.98;
 				}
 			}
 			if (sameDayDelivery == false)
 			{
-				if (zipCode >= 20000 && zipCode <= 29999)
+				if (zipCodeInt >= 20000 && zipCodeInt <= 29999)
 				{
 					return deliveryTotal = 3.99;
 				}
-				else if (zipCode >= 30000 && zipCode <= 39999)
+				else if (zipCodeInt >= 30000 && zipCodeInt <= 39999)
 				{
 					return deliveryTotal = 6.99;
 				}
 				
 			}
-			if (zipCode >= 10000 && zipCode <= 19999)
+			if (zipCodeInt >= 10000 && zipCodeInt <= 19999)
 				{
 					return deliveryTotal = 0.00;
 				}
-			else if (zipCode < 10000 || zipCode > 39999)
+			else if (zipCodeInt < 10000 || zipCodeInt > 39999)
 			{
 				return deliveryTotal = 19.99;
 			}	
@@ -82,7 +86,7 @@ public class FlowerShopOrder
 		{
 			double grandTotal;
 			
-			grandTotal = deliveryTotal(sameDayDelivery,zipCode) + subtotal();
+			grandTotal = deliveryTotal + getSubtotal();
 			
 			return grandTotal;
 		}
@@ -90,7 +94,7 @@ public class FlowerShopOrder
 		@Override
 		public String toString()
 		{
-			return "ORDER - " + bouquetType + " - " + numberOfRoses + " roses " + " - " + subtotal();
+			return "ORDER - " + bouquetType + " - " + numberOfRoses + " roses " + " - " + getSubtotal();
 		}
 		
 		

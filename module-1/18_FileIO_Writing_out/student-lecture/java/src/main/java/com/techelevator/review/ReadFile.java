@@ -34,10 +34,13 @@ public class ReadFile
 
     public static void getFileStatistics(File file)
     {
-        try
+
+    	// try with resource
+        try (Scanner fileStream = new Scanner(file))
         {
             // 3. open the file as a file stream
-            Scanner fileStream = new Scanner(file);
+        	// creates a lock on the file
+//            Scanner fileStream = new Scanner(file);
 
             // 4. process each word/line in the stream
             while(fileStream.hasNext())
@@ -46,11 +49,19 @@ public class ReadFile
                 // do something with the file
             }
 
+            //close the file to release lock
             fileStream.close();
         }
         catch (FileNotFoundException ex)
         {
+        	//runs if there is an exception
             System.out.println(ex.getMessage());
+        }
+        finally
+        {
+        	//this always runs whether or not there is an exception
+        	//clean up code
+        	
         }
     }
 }

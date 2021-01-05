@@ -28,11 +28,11 @@ public class Main {
 //		System.out.println(testM3.isPremium());
 //		System.out.println(testM3.rentalPrice(testM3.getFormat(), testM3.isPremium()));
 //		System.out.println(testM3.toString());
-		
-//		FlowerShopOrder test = new FlowerShopOrder("basic", 10);
+//		
+	FlowerShopOrder test = new FlowerShopOrder("basic", 10);
 //		System.out.println(test.getNumberOfRoses());
-//		System.out.println(test.subtotal());
-//		System.out.println(test.deliveryTotal(true, 30000));
+//		System.out.println(test.getSubtotal());
+	System.out.println(test.deliveryTotal(true, "01234"));
 //		System.out.println(test.grandTotal());
 //		System.out.println(test.toString());
 //		
