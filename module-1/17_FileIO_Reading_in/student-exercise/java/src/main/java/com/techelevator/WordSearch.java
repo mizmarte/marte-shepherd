@@ -21,7 +21,6 @@ public class WordSearch
 		System.out.println(output);
 	}
 	
-	
 	public static void main(String[] args) 
 	{
 		String filePath = getUserInput("What is the file that should be searched?");
@@ -37,31 +36,29 @@ public class WordSearch
 			while (scanner.hasNextLine())
 			{
 				String wordLine = scanner.nextLine();
-				String[] words = wordLine.split(" ");
-				for(String keyWord: words)
-				{
+//				String[] words = wordLine.split(" ");
+//				for(String keyWord: words)
+				
 					if (search.contentEquals("N"))
 					{
-						
-						if(keyWord.toLowerCase().contains(word.toLowerCase()))
+						wordLine = wordLine.toLowerCase();
+						word = word.toLowerCase();
+						if(wordLine.contains(word))
 						{
 							displayOutput(counter + ")" + wordLine);
 						}
-						else if(search.equals("Y"))
+					}	
+					else if(wordLine.contains(word))
 						{
-							if(keyWord.contains(word))
-							{
-								displayOutput(counter + ")" + wordLine);
-							}
+							displayOutput(counter + ")" + wordLine);
 						}
+					counter++;
 					}
-				}
-				counter++;
-			}
+
 		}
 		catch (FileNotFoundException e)
 		{
-			
+			System.out.println("File not found:(");
 		}
 	
 

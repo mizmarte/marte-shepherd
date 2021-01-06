@@ -41,6 +41,8 @@ public class Lecture
 //		}
 		try
 		{
+			// //if you want to create the file manually without writing to it
+			
 			//boolean isFileCreated = file.createNewFile();
 			
 			//System.out.println("Created file: " + isFileCreated);
@@ -49,13 +51,15 @@ public class Lecture
 			System.out.println("Add text: ");
 			String line = userInput.nextLine();
 			
+			System.out.println();
+//			System.out.println(line);
+			
 			//write to the file
 			//FileOutputStream fileStream = new FileOutputStream(file);//it will create or overwrite content
-			//in order to append to an existing file, you have to create the fileoutput stream directly and specify append=true
+			//in order to append to an existing file, you have to create the FileOutput stream directly and specify append=true
 			// file true also allows us to create a new file and add text to it
-			FileOutputStream fileStream = new FileOutputStream(file, true);//will append
-			
-			//BufferedOutputStream fileBuffer = new BufferedOutputStream(fileStream);
+			FileOutputStream fileStream = new FileOutputStream(file, true);//also appends
+//			BufferedOutputStream fileBuffer = new BufferedOutputStream(fileStream);
 			PrintStream fileWriter = new PrintStream(fileStream);
 			
 		
