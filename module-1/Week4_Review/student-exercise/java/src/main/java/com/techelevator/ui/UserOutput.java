@@ -1,5 +1,8 @@
 package com.techelevator.ui;
 
+import com.techelevator.models.Inventory;
+import com.techelevator.models.products.Product;
+
 /**
  * Responsibilities:
  *      This class should handle formatting and displaying ALL messages to the user
@@ -10,4 +13,20 @@ package com.techelevator.ui;
 public class UserOutput 
 {
     
+	public static void displayInventory(Inventory inventory)
+	{
+		System.out.println();
+		System.out.println("*******************");
+		System.out.println("      Products     ");
+		System.out.println("********************");
+		System.out.println();
+		System.out.println();
+		
+//	
+//		{
+//			System.out.println(product.toString());
+//		}
+//		System.out.println();
+	}
+	
 }
