@@ -13,17 +13,10 @@ public class UserInput
 {
    private static Scanner scanner = new Scanner(System.in);
    
-//   public static String getHomeScreenOption()
-   
-   public static String getSelectedProduct()
-   {
-	   System.out.println("Which product do you want? ");
-	   String productId = scanner.nextLine();
-	   
-	   return productId.trim();
-   }
-   {
-	   System.out.println();
+  public static String getHomeScreenOption()
+
+  {
+	  System.out.println();
 	   System.out.println("What would you like to do?");
 	   System.out.println();
 	   
@@ -37,23 +30,40 @@ public class UserInput
 	   
 	   String selectedOption = scanner.nextLine();
 	   String option = selectedOption.trim().toLowerCase();
-//	   
-//	   if (option.equals("a"))
-//	   {
-//		   return "add";
-//	   }
-//	   else if (option.equals("b"))
-//	   {
-//		   return "cart";
-//	   }
-//	   else if (option.equals("c"))
-//	   {
-//		   return "pay";
-//	   }
-//	   else if (option.equals("d"))
-//	   {
-//		   return "quit";
-//	   }
-//   }
-	
-}}
+	   
+	   
+	   if(option.equals("a"))
+		{
+			return "add";
+		}
+		else if(option.equals("b"))
+		{
+			return "cart";
+		}
+		else if(option.equals("c"))
+		{
+			return "pay";
+		}
+		else if(option.equals("d"))
+		{
+			return "quit";
+		}
+		else
+		{
+			return "";
+		}
+		
+	   
+  }	
+	 
+  public static String getSelectedProduct()
+   {
+	   System.out.println("Which product do you want? ");
+	   String productId = scanner.nextLine();
+	   
+	   return productId.trim();
+   }
+   
+	   
+	   
+}

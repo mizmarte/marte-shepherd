@@ -24,7 +24,6 @@ public class Inventory
 	{
 		loadInventory();
 	}
-	
     private void loadInventory()
     
     {

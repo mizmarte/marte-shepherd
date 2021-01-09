@@ -18,11 +18,16 @@ public class UserOutput
 		System.out.println();
 		System.out.println("*******************");
 		System.out.println("      Products     ");
-		System.out.println("********************");
+		System.out.println("*******************");
 		System.out.println();
 		System.out.println();
-		
-//	
+	
+		for(Product product: inventory.getProducts())
+		{
+			System.out.println(product.toString());
+			
+		}
+		System.out.println();
 //		{
 //			System.out.println(product.toString());
 //		}

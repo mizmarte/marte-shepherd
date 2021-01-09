@@ -20,19 +20,26 @@ public Product(String id, String name, BigDecimal price)
 	this.price = price;
 }
 
-public String getId() {
+public String getId() 
+{
 	return id;
 }
 
-public String getName() {
+public String getName() 
+{
 	return name;
 }
 
-public BigDecimal getPrice() {
+public BigDecimal getPrice() 
+{
 	return price;
 }
   
-   
+   @Override
+   public String toString()
+   {
+	   return id + ")" + name + ": $" + price;
+   }
 	
 	
 }

@@ -25,24 +25,26 @@ public class FileProductLoader
 		File productsPath = new File("data/products.csv");
 		try(Scanner fileScanner = new Scanner(productsPath))
 		{
-			fileScanner.hasNextLine();
-			
+			//read one line to skip the header
+			fileScanner.nextLine();
+			//loop and add each product to the list
 			while(fileScanner.hasNextLine())
 			{
 				String line = fileScanner.nextLine();
 				
-				//create product and add to list
+				//create product 
 				String[] parts = line.split(",");
 				String id = parts[0];
 				String name = parts[1];
-				BigDecimal price = new BigDecimal parts[2];
+				BigDecimal price = new BigDecimal(parts[2]);
 				Product product = new Product(id, name, price);
 				
+				//and add to list
 				products.add(product);
 				
 			}
 		}
-		catch(Exception e)
+		catch(Exception ex)
 		{
 			
 		}
