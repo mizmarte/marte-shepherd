@@ -149,7 +149,9 @@
         WHERE lifeexpectancy >= 70 AND gnp BETWEEN 1 AND 100;
         
 -- 21. The per capita GNP (i.e. GNP divided by population) in US Dollars of all countries in Europe (46 rows)
-        SELECT gnp/population AS "per capita GNP"
+        SELECT gnp
+                ,population
+                ,gnp * 1000000/population AS per_capita_GNP
         FROM country
         WHERE continent = 'Europe';
 
