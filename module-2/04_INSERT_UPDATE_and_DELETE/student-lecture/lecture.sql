@@ -1,19 +1,121 @@
+
+SELECT *
+FROM countrylanguage;
+
+INSERT INTO <table>(available columns)
+VALUES (<values>)
+
+
+
 -- INSERT
 
 -- 1. Add Klingon as a spoken language in the USA
+INSERT INTO countrylanguage
+(
+        countrycode
+        ,language
+        ,isofficial
+        ,percentage
+)
+VALUES
+(
+        'USA'
+        ,'Klingon'
+        ,false
+        ,0.001
+);
+
+SELECT *
+FROM countrylanguage
+WHERE countrycode = 'USA';
+
 -- 2. Add Klingon as a spoken language in Great Britain
 
+SELECT *
+FROM countrylanguage
+WHERE countrycode = 'GBR'
+
+INSERT INTO countrylanguage
+(
+        countrycode
+        ,language
+        ,isofficial
+        ,percentage
+)
+VALUES
+(
+        'GBR'
+        ,'Klingon'
+        ,false
+        ,0.2
+);
+
+
+
+
+
+
+
+
+INSERT INTO countrylanguage
+(
+        countrycode
+        ,language
+        ,isofficial
+        ,percentage
+)
+VALUES ('GBR','Klingon',false,0.2) --an example of adding more than one row at a time
+        ,('USA', Esperanto, false, 0.002);
 
 -- UPDATE
 
--- 1. Update the capital of the USA to Houston
--- 2. Update the capital of the USA to Washington DC and the head of state
+--Syntax
+/*
+UPDATE <table name>
+SET <column> = value
+        ,<column> = value
+WHERE <condition> -- ALWAYS HAVE A WHERE CLAUSE
 
+*/
+
+-- 1. Update the capital of the USA to Houston
+
+--3813 is current capita 3796 is houston (made change, then changed it back to Washington DC)
+SELECT *
+FROM country
+WHERE code = 'USA'
+
+SELECT*
+FROM city
+WHERE name = 'Houston'
+
+UPDATE country
+SET capital = 3796
+WHERE code = 'USA';
+
+
+-- 2. Update the capital of the USA to Washington DC and the head of state
+UPDATE country
+SET capital = 3813
+        ,headofstate = 'Joe Biden'
+WHERE code = 'USA';
+
+SELECT *
+FROM country
+WHERE code = 'USA'
 
 -- DELETE
 
+
+
 -- 1. Delete English as a spoken language in the USA
+DELETE FROM countrylanguage
+WHERE countrycode = 'USA'
+        AND language = 'English';
+
 -- 2. Delete all occurrences of the Klingon language 
+DELETE FROM countrylanguage
+WHERE language = 'Klingon';
 
 
 -- REFERENTIAL INTEGRITY
