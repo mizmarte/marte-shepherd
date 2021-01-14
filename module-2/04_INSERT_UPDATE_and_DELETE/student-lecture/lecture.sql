@@ -121,32 +121,110 @@ WHERE language = 'Klingon';
 -- REFERENTIAL INTEGRITY
 
 -- 1. Try just adding Elvish to the country language table.
+--
+
+INSERT INTO countrylanguage
+(
+        countrycode
+        ,language
+        ,isofficial
+        ,percentage
+)
+VALUES ('USA', 'Elvish', false, 0.002);
 
 -- 2. Try inserting English as a spoken language in the country ZZZ. What happens?
+--ILLEGAL BECAUSE THERE IS NO zzz country in the country table
 
--- 3. Try deleting the country USA. What happens?
+INSERT INTO countrylanguage
+(
+        countrycode
+        ,language
+        ,isofficial
+        ,percentage
+)
+VALUES ('ZZZ', 'English', false, 0.002);
+
+-- 3. Try deleting the country USA. What happens? -- do a select statment first with a where clause so that you grab the correct data
+--cannot delete a country that has dependencies on this table 
+
+DELETE FROM country
+WHERE code = 'USA'
 
 
 -- CONSTRAINTS
 
 -- 1. Try inserting English as a spoken language in the USA
+INSERT INTO countrylanguage
+(
+        countrycode
+        ,language
+        ,isofficial
+        ,percentage
+)
+VALUES ('USA', 'English', false, 0.002);
 
--- 2. Try again. What happens?
+
+-- 2. Try again. What happens? -- FAILS
 
 -- 3. Let's relocate the USA to the continent - 'Outer Space'
+--CHECK CONSTRAINT - VALIDATES AGAINST CERTAIN FIELDS IN THE TABLE
+UPDATE country
+SET continent = 'Outer Space'
+WHERE code = 'USA';
 
 
 -- How to view all of the constraints
 
-SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
-SELECT * FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE
-SELECT * FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS
+SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS;
+SELECT * FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE;
+SELECT * FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS;
 
 
 -- TRANSACTIONS
 
+ Begin Transaction;
+                UPDATE country
+                SET capital = 3796;
+--THIS SHOWS ALL UP DATED CAPITALS
+
+                SELECT code
+                 ,capital   
+FROM country;
+--ROLS BACK ANY CHANGES
+Rollback Transaction;
+--VERIFY THAT NO CAPITALS WERE ACTUALLY UPDATED
+SELECT code
+        ,capital   
+FROM country;
+
 -- 1. Try deleting all of the rows from the country language table and roll it back.
+ --CHANGE CAPITAL TO HOUSTON WITHOUT WHERE
+ Begin Transaction;
+ 
+        DELETE FROM countrylanguage;
+        
+        SELECT*
+        FROM countrylanguage;
+        
+Rollback Transaction;
+        
+
 
 -- 2. Try updating all of the cities to be in the USA and roll it back
 
 -- 3. Demonstrate two different SQL connections trying to access the same table where one happens to be inside of a transaction but hasn't committed yet.
+
+
+ Begin Transaction;
+ 
+        UPDATE country
+        SET lifeexpectancy = 82.2
+        WHERE code = 'USA';
+        
+Rollback Transaction;
+        
+        SELECT code
+                ,lifeexpectancy
+        FROM country
+        WHERE code = 'USA';
+        
