@@ -220,7 +220,7 @@ LIMIT 10;
 -- (NOTE: Keep in mind that an employee may work at multiple stores.)
 -- (Store 1 has 7928 total rentals and Store 2 has 8121 total rentals)
 
-SELECT s.store_id
+SELECT s.store_id --my query
         ,a.address
         ,COUNT(r.rental_id) AS Total_number_of_rentals
        ,SUM(p.amount) AS Total_amount_of_sales
@@ -235,7 +235,27 @@ ON r.customer_id = c.customer_id
 INNER JOIN payment AS p
 ON p.customer_id = r.customer_id
 GROUP BY (s.store_id, a.address)
-ORDER BY Total_number_of_rentals;
+--ORDER BY Total_number_of_rentals;
+
+SELECT s.store_id --the correct query
+        ,a.address
+        ,COUNT (i.inventory_id) AS inventory_count
+        ,COUNT(r.rental_id) AS rental_count
+        ,SUM(amount) AS total_sales
+        ,AVG(amount) AS average_sales
+FROM store AS s
+INNER JOIN address AS a
+ON s.address_id = a.address_id
+INNER JOIN inventory AS i
+        ON s.store_id = i.store_id
+INNER JOIN rental AS r
+        ON i.inventory_id = r.inventory_id
+INNER JOIN payment AS p
+        ON r.rental_id = p.rental_id
+--WHERE S.store_id = 1
+group by s.store_id
+        ,a.address
+;
 
 
 -- 16. The top ten film titles by number of rentals
