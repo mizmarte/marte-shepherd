@@ -105,6 +105,11 @@ FROM country
 WHERE code = 'USA'
 
 -- DELETE
+/*
+Syntax
+DELETE FROM table_name
+WHERE condition;
+*/
 
 
 
