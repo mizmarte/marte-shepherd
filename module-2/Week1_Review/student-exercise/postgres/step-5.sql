@@ -112,7 +112,7 @@ FROM reservation
 ORDER BY reservation_id DESC;
 /*
  STEP SIX: The Wayne Family called and asked if they could change their reservation to today. Update the from_date to today and the to_date to a week from today.
-
+*********HAVING ISSUES WITH THIS ONE********
  */
 BEGIN TRANSACTION;
 
