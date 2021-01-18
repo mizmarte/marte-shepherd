@@ -102,9 +102,9 @@ INSERT INTO reservation
         site_id, name, from_date, to_date
 )
 VALUES
-        (623, 'Wayne Family',(select current_date + interval '10 days') , (select current_date + interval '20 days'))
-       ,(624, 'Parker Family',(select current_date + interval '11 days'), (select current_date + interval '20 days'))
-       ,(625, 'Kent Family',(select current_date + interval '12 days'), (select current_date + interval '20 days'));
+        (623, 'Wayne Family',(current_date + interval '10 days') , (current_date + interval '20 days'))
+       ,(624, 'Parker Family',(current_date + interval '11 days'), (current_date + interval '20 days'))
+       ,(625, 'Kent Family',(current_date + interval '12 days'), (current_date + interval '20 days'));
         
 
 SELECT *
@@ -118,14 +118,16 @@ BEGIN TRANSACTION;
 
 UPDATE reservation
 SET
-(
-       -- from_date = select current_date
-       -- , to_date = select current_date + interval '7 days' ERROR MESSAGE AROUND EQUAL SIGN.....POSTGRESQL DOES NOT LIKE THE FORMAT OF THESE LINES
-)
 
-WHERE site_id = 623;
+       from_date = CURRENT_DATE
+        ,to_date = CURRENT_DATE + 7
+
+
+WHERE reservation_id = 50;
         
-
+SELECT *
+FROM reservation
+WHERE reservation_id = 50;
  
 ROLLBACK;
 /*
