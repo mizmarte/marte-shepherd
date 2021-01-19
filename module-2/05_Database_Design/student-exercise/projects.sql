@@ -1,14 +1,16 @@
+--DDL - Data Definition Language
 --CREATE TABLE
 --DROP TABLE
 
-DROP TABLE employee CASCADE;
-DROP TABLE project_employee;
-DROP TABLE project;
-DROP TABLE department CASCADE;
+--connect to POSTGRES database when you are creating another dB
 
-BEGIN TRANSACTION;
-ROLLBACK;
-COMMIT;
+--kill any dB locks
+SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'projects';
+
+DROP DATABASE projects;
+
+CREATE DATABASE projects; 
+
 
 --ALTER TABLE
 CREATE TABLE employee
@@ -81,8 +83,8 @@ VALUES
         ,('Payroll',2)
         ,('Maintenace',3);
         
-SELECT *
-FROM department;
+--SELECT *
+--FROM department;
         
 
 
@@ -109,8 +111,8 @@ VALUES
         ,(2,'Payroll Clerk','Get','Paid','M','12/01/1995','03/02/2019');
         
         
-SELECT *
-FROM employee;
+--SELECT *
+--FROM employee;
 
 INSERT INTO project
 (
@@ -124,8 +126,8 @@ VALUES
         ,('HR Website Go Live','2019-02-14',1)
         ,('HR Cleanup','2020-03-14',2);
         
-SELECT *
-FROM project;
+--SELECT *
+--FROM project;
 
 INSERT INTO project_employee
 (
@@ -139,5 +141,5 @@ VALUES
         ,(4,5)
         ,(4,6);
 
-select*
-from project_employee;
+--select*
+--from project_employee;
