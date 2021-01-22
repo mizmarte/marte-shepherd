@@ -2,6 +2,8 @@ package com.techelevator.dao.jdbc;
 
 import com.techelevator.dao.ParkDAO;
 import com.techelevator.model.Park;
+
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -18,8 +20,30 @@ public class JDBCParkDAO implements ParkDAO {
     }
 
     @Override
-    public List<Park> getAllParks() {
-        return null;
+    public List<Park> getAllParks() 
+    {
+    	List<Park> parks = new ArrayList<Park>();
+		
+		String query = "SELECT park_id\r\n" + 
+						"        ,name\r\n" + 
+						"        ,location\r\n" + 
+						"        ,establish_date\r\n" + 
+						"        ,area\r\n" + 
+						"        ,visitors\r\n" + 
+						"        ,description\r\n" + 
+						"\r\n" + 
+						"FROM park;";
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(query);
+		
+		while(rows.next())
+		{
+			Park park = mapRowToPark(rows);
+			
+			parks.add(park);
+		}
+		
+		return parks;
+    	
     }
 
     private Park mapRowToPark(SqlRowSet results) {
