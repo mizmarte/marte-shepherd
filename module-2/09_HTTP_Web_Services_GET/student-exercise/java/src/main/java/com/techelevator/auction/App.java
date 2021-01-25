@@ -16,26 +16,41 @@ public class App {
 
     	App app = new App();
     	app.run();
+    
     }
 
-    public Auction[] listAllAuctions() {
+    public Auction[] listAllAuctions() 
+    {
         // api code here
-        return null;
+    	String url = API_URL;
+    	Auction[] auctions = restTemplate.getForObject(url, Auction[].class);
+    	return (auctions);
+        
     }
 
-    public Auction listDetailsForAuction(int id) {
+    public Auction listDetailsForAuction(int id) 
+    {
         // api code here
-        return null;
+    	String url = API_URL + "/" + id;
+    	Auction auction = restTemplate.getForObject(url, Auction.class);
+    	
+        return (auction);
     }
 
-    public Auction[] findAuctionsSearchTitle(String title) {
+    public Auction[] findAuctionsSearchTitle(String title) 
+    {
         // api code here
-        return null;
+    	String url = API_URL + "?title_like=" + title;
+    	Auction[] auctions = restTemplate.getForObject(url, Auction[].class);
+    	return (auctions);
     }
 
-    public Auction[] findAuctionsSearchPrice(double price) {
+    public Auction[] findAuctionsSearchPrice(double price)
+    {
         // api code here
-        return null;
+    	String url = API_URL + "?currentBid_lte=" + price;
+    	Auction[] auctions = restTemplate.getForObject(url, Auction[].class);
+    	return (auctions);
     }
 
     private void run() {
@@ -107,7 +122,8 @@ public class App {
         }
     }
 
-    private int promptForInt(String prompt) {
+    private int promptForInt(String prompt) 
+    {
     	while (true) {
     		System.out.println(prompt);
     		try {
