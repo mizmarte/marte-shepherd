@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 import org.springframework.web.client.RestTemplate;
 
-public class App {
-
+public class App 
+{
+	private static final String BASE_URL = "http://localhost:3000/";
+	private static RestTemplate restTemplate = new RestTemplate();
+	
     public static void main(String[] args) {
         run();
     }
@@ -24,12 +27,16 @@ public class App {
                 System.out.println("Error parsing the input for menu selection.");
             }
             System.out.println("");
-            if (menuSelection == 1) {
-                System.out.println("Not implemented");
+            if (menuSelection == 1) 
+            {
+               //get all hotels from API and display
+            	getHotels();
             } else if (menuSelection == 2) {
-                System.out.println("Not implemented");
-            } else if (menuSelection == 3) {
-                System.out.println("Not implemented");
+                getReviews();
+            } else if (menuSelection == 3) 
+            {	System.out.println("Enter a hotel id: ");
+            	int hotelId = Integer.parseInt(scanner.nextLine());
+                getHotelById(hotelId);
             } else if (menuSelection == 4) {
                 System.out.println("Not implemented");
             } else if (menuSelection == 5) {
@@ -82,5 +89,72 @@ public class App {
             System.out.println(review.toString());
         }
     }
+    
+  //API calls
+    private static void getHotels()
+    {
+    	// 1 - specify the url (endpoint) of the API
+    	String url = BASE_URL + "hotels";
+    	
+    	//2 - call the API
+    	//3 - convert the data
+    	Hotel[] hotels = restTemplate.getForObject(url,  Hotel[].class);
+    	
+    	
+    	//4 - use the data
+    	printHotels(hotels);
+    }
+    
+    private static void getHotelById(int id)
+    {
+    	// 1 - specify the url (endpoint) of the API
+    	String url = BASE_URL + "hotels/" + id;
+    	
+    	//2 - call the API
+    	//3 - convert the data
 
+    	Hotel hotel = restTemplate.getForObject(url,  Hotel.class);
+    	
+    	//4 - use the data
+    	printHotel(hotel);
+    }
+    
+    private static void getHotelsByRating()
+    {
+    	// 1 - specify the url (endpoint) of the API
+    	String url = BASE_URL + "hotels?stars=";
+    	
+    	//2 - call the API
+    	//3 - convert the data
+    	Hotel[] hotels = restTemplate.getForObject(url,  Hotel[].class);
+    	
+    	
+    	//4 - use the data
+    	printHotels(hotels);
+    }
+    private static void getReviews()
+    {
+    	String url = BASE_URL + "reviews";
+    	RestTemplate restTemplate = new RestTemplate();
+    	String result = restTemplate.getForObject(url, String.class);
+    	
+    	Review[] reviews = restTemplate.getForObject(url,  Review[].class);
+    	
+    	printReviews(reviews);
+    }
+
+    private static void getReviewsByHotelId(int id)
+    {
+    	// 1 - specify the url (endpoint) of the API
+    	String url = BASE_URL + "reviews?hotelID=" + id;
+    	
+    	//2 - call the API
+    	//3 - convert the data
+    	Review[] reviews = restTemplate.getForObject(url,  Review[].class);
+    	
+    	
+    	//4 - use the data
+    	printReviews(reviews);
+    }
+   
 }
