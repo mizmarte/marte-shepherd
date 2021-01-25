@@ -24,15 +24,16 @@ public class JDBCParkDAO implements ParkDAO {
     {
     	List<Park> parks = new ArrayList<Park>();
 		
-		String query = "SELECT park_id\r\n" + 
-						"        ,name\r\n" + 
-						"        ,location\r\n" + 
-						"        ,establish_date\r\n" + 
-						"        ,area\r\n" + 
-						"        ,visitors\r\n" + 
-						"        ,description\r\n" + 
-						"\r\n" + 
-						"FROM park;";
+		String query = "SELECT park_id \r\n" + 
+				"        ,name\r\n" + 
+				"        ,location\r\n" + 
+				"        ,establish_date \r\n" + 
+				"        ,area\r\n" + 
+				"        ,visitors \r\n" + 
+				"        ,description \r\n" + 
+				"					\r\n" + 
+				"FROM park\r\n" + 
+				"ORDER BY location;";
 		SqlRowSet rows = jdbcTemplate.queryForRowSet(query);
 		
 		while(rows.next())

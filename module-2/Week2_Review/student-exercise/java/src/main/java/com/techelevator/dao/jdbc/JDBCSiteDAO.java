@@ -26,12 +26,19 @@ public class JDBCSiteDAO implements SiteDAO {
     {
     	List<Site> sites = new ArrayList<Site>();
     	
-    	String query = "SELECT DISTINCT s.site_id\r\n" + 
-    						"        \r\n" + 
-    						"FROM site AS s\r\n" + 
-    						"INNER JOIN campground AS c\r\n" + 
-    						"        ON s.campground_id = c.campground_id\r\n" + 
-    						"WHERE max_rv_length > 0 AND park_id = ?;";
+    	String query = "SELECT\r\n" + 
+    			"        p.name\r\n" + 
+    			"        ,COUNT(s.site_id) AS site_count\r\n" + 
+    			"        ,c.campground_id\r\n" + 
+    			"            \r\n" + 
+    			"FROM park AS p\r\n" + 
+    			"INNER JOIN campground AS c\r\n" + 
+    			"ON p.park_id = c.park_id\r\n" + 
+    			"INNER JOIN site AS s\r\n" + 
+    			"ON c.campground_id = s.campground_id\r\n" + 
+    			"WHERE s.max_rv_length > 0 AND c.park_id =?\r\n" + 
+    			"GROUP BY p.name, c.campground_id\r\n" + 
+    			"ORDER BY c.campground_id, COUNT(s.site_id);";
     	
     	SqlRowSet rows = jdbcTemplate.queryForRowSet(query,parkId);
     	
@@ -43,6 +50,13 @@ public class JDBCSiteDAO implements SiteDAO {
     		sites.add(site);
     	}
     	
+    	return sites;
+    }
+    
+    @Override
+    public List<Site> getCurrentlyAvailableSitesInAPark()
+    {
+    	List<Site> sites = new ArrayList<Site>();
     	return sites;
     }
 
