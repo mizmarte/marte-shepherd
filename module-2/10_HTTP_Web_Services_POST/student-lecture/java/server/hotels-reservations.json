@@ -111,6 +111,14 @@
       "roomsAvailable": 75,
       "costPerNight": 185,
       "coverImage": "greektown-detroit.webp"
+    },
+    {
+      "name": "The Sugar Shack",
+      "stars": 3,
+      "roomsAvailable": 7,
+      "costPerNight": 250,
+      "coverImage": "sugar-shack.png",
+      "id": 8
     }
   ],
   "reservations": [
@@ -129,6 +137,28 @@
       "checkinDate": "08/08/2020",
       "checkoutDate": "08/10/2020",
       "guests": 4
+    },
+    {
+      "id": 121,
+      "hotelID": 7,
+      "fullName": "Marte Shepherd",
+      "checkinDate": "02-01-2021",
+      "checkoutDate": "02-05-2021",
+      "guests": 2
+    },
+    {
+      "id": 551
+    },
+    {
+      "id": 552
+    },
+    {
+      "id": 75,
+      "hotelID": 8,
+      "fullName": "Marte Shepherd",
+      "checkinDate": "02/01/2021",
+      "checkoutDate": "02/03/2021",
+      "guests": 2
     }
   ]
 }

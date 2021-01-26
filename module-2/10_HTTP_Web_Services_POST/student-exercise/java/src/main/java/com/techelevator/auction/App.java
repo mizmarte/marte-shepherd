@@ -54,9 +54,12 @@ public class App {
                 String newAuctionString = consoleService.promptForAuctionData();
                 Auction auction = auctionService.add(newAuctionString);
                 // if unsuccessful
-                if (auction == null) {
+                if (auction == null) 
+                {
                     System.out.println("Invalid auction. Please enter the Title, Description, User, Current Bid Price (no dollar sign).");
-                } else {
+                } 
+                else 
+                {
                     // Print all auctions every time - provides confirmation of action
                 	Auction[] auctions = auctionService.listAllAuctions();
                 	if (auctions != null) {

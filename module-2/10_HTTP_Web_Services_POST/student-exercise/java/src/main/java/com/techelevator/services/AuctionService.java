@@ -3,9 +3,11 @@ package com.techelevator.services;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
+
 
 import com.techelevator.models.Auction;
 
@@ -64,19 +66,83 @@ public class AuctionService {
         return auctions;
     }
 
-    public Auction add(String auctionString) {
-    	// place code here
-    	return null; 
+    public Auction add(String auctionString) 
+    {
+    	Auction newAuction = makeAuction(auctionString);
+    	
+    	String url = API_URL;
+    	
+    	 HttpHeaders headers = new HttpHeaders();
+         headers.setContentType(MediaType.APPLICATION_JSON);
+         
+         HttpEntity<Auction> makeEntity = new HttpEntity<>(newAuction, headers);
+          
+ 		try
+ 		{
+ 			Auction auction = restTemplate.postForObject(url, makeEntity, Auction.class);
+ 			return auction;
+ 		}
+ 		catch (Exception e)
+ 		{
+ 			return null;
+ 		}
+ 		
+         
+         
+         // place code here
+         
+    	 
     }
 
-    public Auction update(String auctionString) {
-    	// place code here
-    	return null; 
+    public Auction update(String auctionString) 
+    {
+    	// create the body
+    	Auction auctionToUpdate = makeAuction(auctionString);
+    	
+		// append the ID as the WHERE clause for the update statement
+    	String url = API_URL + "/" + auctionToUpdate.getId();
+    	
+    	// create headers
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON); // what data type to expect in the body
+		
+		HttpEntity<Auction> entity = new HttpEntity<Auction>(auctionToUpdate, headers);
+    	
+		try
+		{
+			// put() does not return a response or object
+			restTemplate.put(url, entity);
+			return auctionToUpdate;
+		} 
+		catch (Exception e)
+		{
+			// TODO: handle exception			
+			return null;
+		}
     }
 
-    public boolean delete(int id) throws RestClientResponseException, ResourceAccessException {
+    public boolean delete(int id) throws RestClientResponseException, ResourceAccessException 
+    {
     	// place code here
-    	return false; 
+    	
+    	String url =API_URL + "/" + id;
+    	
+    	try
+    	{
+    		restTemplate.delete(url);
+    		return true;
+        }
+    	catch (RestClientResponseException ex)
+    	{
+    		console.printError("Could not retrieve the requested auction. Is the server running?");
+    	}
+    	catch (ResourceAccessException ex)
+    	{
+    		console.printError("A network error occurred. Please try again.");
+    	}
+    	return false;
+    	
+    	
     }
 
     private HttpEntity<Auction> makeEntity(Auction auction) {

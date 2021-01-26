@@ -28,9 +28,16 @@ public class LocationService {
         return restTemplate.getForObject(BASE_URL, Location[].class);
     }
 
-    public Location add(String CSV) {
-    	// api code here
-	    return null;
+    public Location add(String CSV) 
+    {
+    	Location location = makeLocation(CSV);
+    	String url = BASE_URL + "locations";
+    	
+    	if(location == null)
+    	{
+    		return null;
+    	}
+	    return location;
     }
 
     public void delete(int id) {
