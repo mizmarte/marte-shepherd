@@ -24,7 +24,7 @@ public class App {
         // api code here
     	String url = API_URL;
     	Auction[] auctions = restTemplate.getForObject(url, Auction[].class);
-    	return (auctions);
+    	return auctions;
         
     }
 
