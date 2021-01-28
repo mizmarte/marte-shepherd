@@ -18,7 +18,9 @@ public class HotelController {
 
     private HotelDAO hotelDAO;
     private ReservationDAO reservationDAO;
-
+ 
+//Dependency injection
+//spring mvc will inject hotel and resevation dao
     public HotelController(HotelDAO hotelDAO, ReservationDAO reservationDAO) {
         this.hotelDAO = hotelDAO;
         this.reservationDAO = reservationDAO;
@@ -85,11 +87,28 @@ public class HotelController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/hotels/{id}/reservations", method = RequestMethod.POST)
-    public Reservation addReservation(@RequestBody Reservation reservation, @PathVariable("id") int hotelID)
-            throws HotelNotFoundException {
+    public Reservation addReservation(@Valid @RequestBody Reservation reservation, @PathVariable("id") int hotelID)
+            throws HotelNotFoundException 
+    {
         return reservationDAO.create(reservation, hotelID);
     }
+    //return 200
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path= "/reservations/{id}", method = RequestMethod.PUT)
+    public void updateReservation(
+    		@Valid @RequestBody Reservation reservation, 
+    		@PathVariable int id) throws ReservationNotFoundException
+    
+    {
+    	reservationDAO.update(reservation, id);
+    }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(path = "/reservations/{id}", method = RequestMethod.DELETE)
+    public void deleteReservation(@PathVariable int id) throws ReservationNotFoundException
+    {
+    	reservationDAO.delete(id);
+    }
     /**
      * /hotels/filter?state=oh&city=cleveland
      *
