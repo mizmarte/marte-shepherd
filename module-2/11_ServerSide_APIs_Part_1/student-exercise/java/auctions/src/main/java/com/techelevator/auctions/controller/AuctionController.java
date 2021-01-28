@@ -51,16 +51,5 @@ public class AuctionController
 		return dao.create(auction);
 	}
 	
-//	@RequestMapping(method = RequestMethod.GET)
-//	public  List<Auction> list
-//	(@RequestParam() 
-//	{
-//		if ()
-//		{
-//			return dao.searchByPrice(currentBid_lte);
-//		}
-//		return dao.list();
-//		
-//	}
 	
 }
