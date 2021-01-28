@@ -20,8 +20,21 @@ public class AuctionController
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Auction> list() 
+	public List<Auction> list(@RequestParam(value="title_like", defaultValue = "") String title
+			,@RequestParam(value="currentBid_lte", defaultValue = "0") double currentBid) 
 	{
+		if (title.length() > 0 && currentBid > 0)
+		{
+			return dao.searchByTitleAndPrice(title, currentBid);
+		}
+		else if (title.length () > 0)
+		{
+			return dao.searchByTitle(title);
+		}
+		else if (currentBid > 0)
+		{
+			return dao.searchByPrice(currentBid);
+		}
         return dao.list();
         
     }
@@ -33,33 +46,21 @@ public class AuctionController
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public void create(@RequestBody Auction auction)
+	public Auction create(@RequestBody Auction auction)
 	{
-		dao.create(auction);
+		return dao.create(auction);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public  List<Auction> list
-	(@RequestParam(value="title_like", defaultValue = "") String title)
-	{
-		if (title.length() > 0)
-		{
-			return dao.searchByTitle(title);
-		}
-		return dao.list();
-		
-	}
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public  List<Auction> list
-	(@RequestParam(value="currentBid_lte", defaultValue = "0") double currentBid_lte) 
-	{
-		if (currentBid_lte > 0)
-		{
-			return dao.searchByPrice(currentBid_lte);
-		}
-		return dao.list();
-		
-	}
+//	@RequestMapping(method = RequestMethod.GET)
+//	public  List<Auction> list
+//	(@RequestParam() 
+//	{
+//		if ()
+//		{
+//			return dao.searchByPrice(currentBid_lte);
+//		}
+//		return dao.list();
+//		
+//	}
 	
 }
