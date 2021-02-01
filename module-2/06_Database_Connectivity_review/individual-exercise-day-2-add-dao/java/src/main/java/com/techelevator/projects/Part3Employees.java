@@ -14,16 +14,28 @@ import com.techelevator.projects.models.jdbc.JDBCEmployeeDAO;
 
 public class Part3Employees
 {
-    EmployeeDAO dao = new JDBCEmployeeDAO();
+	JdbcTemplate jdbcTemplate;
+    
+    
+    public Part3Employees()
+    {
+    	BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/projects");
+		dataSource.setUsername("postgres");
+	    dataSource.setPassword("postgres1");
+	    
+	    jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     public void run()
-    {       
+    {     
+    	
 
     	// *********************************
         // Part 3 - Working with employees
     	// *********************************
     	
-    	// 3.1 - add all departments to the database
+    	// 3.1 - add all employees to the database
     	System.out.println("*** 3.1 Adding employees ***\n");        
         // TODO: add all employees
         addEmployee(1, null, "Fredrick", "Keppard", LocalDate.parse("1953-07-15"), "M", LocalDate.parse("2001-04-01"));
@@ -85,39 +97,50 @@ public class Part3Employees
     	
     }
     
-    private void addEmployee(int id, Integer departmentId, String firstName, String lastName, LocalDate birthDate, String gender, LocalDate hireDate)
+    private void addEmployee(int employeeId, Integer departmentId, String firstName, String lastName, LocalDate birthDate, String gender, LocalDate hireDate)
     {
     	try
 		{
-			Employee employee = new Employee(id, departmentId, firstName, lastName, gender, birthDate, hireDate);
+    		String sql = "INSERT INTO employee\r\n" + 
+    				"        (employee_id, department_id, first_name, last_name, birth_date, gender, hire_date)\r\n" + 
+    				"VALUES (? ,? ,? ,? ,? ,? ,?);";
+    		jdbcTemplate.update(sql, employeeId,departmentId,firstName,lastName,birthDate,gender,hireDate);
+    		
 			
 			//TODO: call the dao addEmployee Method
 		} 
     	catch (Exception e)
 		{
-			System.err.println("There was an error inserting employee: " + id);
+			System.err.println("There was an error inserting employee: " + employeeId);
 			System.err.println(e.getMessage());
-			System.out.println();
 		}
     }
     
     private void getAllEmployees()
     {
-    	List<Employee> employees = new ArrayList<Employee>();
     	try
-		{
-			//TODO: use the DAO to get all employees
-			
-			for (Employee employee : employees)
-			{
-				System.out.println(employee.getId() + ":  "
-						+ employee.getDepartmentId() + "     "
-						+ employee.getFirstName() + " " + employee.getLastName() + "     "
-						+ employee.getGender() + "     "
-						+ employee.getBirthDate() + "     "
-						+ employee.getHireDate()
-						);
-			}
+    	{
+	    	String sql = "SELECT  employee_id\r\n" + 
+	    			"        , department_id\r\n" + 
+	    			"        , first_name\r\n" + 
+	    			"        , last_name\r\n" + 
+	    			"        , birth_date\r\n" + 
+	    			"        , gender\r\n" + 
+	    			"        , hire_date\r\n" + 
+	    			"FROM employee;";
+	    	SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
+	    	while (rows.next())
+	    	{
+	    		int employeeId = rows.getInt("employee_id");
+	    		Integer departmentId = rows.getInt("department_id");
+	    		String firstName = rows.getString("first_name");
+	    		String lastName = rows.getString("last_name");
+	    		LocalDate birthDate = rows.getDate("birth_date").toLocalDate();
+	    		String gender = rows.getString("gender");
+	    		LocalDate hireDate = rows.getDate("hire_date").toLocalDate();
+	    		
+	    		System.out.println(employeeId + ":  " + departmentId + ": " + firstName + ": " + lastName + ": " + gender + ": " + birthDate + ": " + hireDate);
+	    	}		
     					
 		} 
     	catch (Exception e)
@@ -126,84 +149,117 @@ public class Part3Employees
 		}
     }
 
-    private void getEmployeeById(int id)
+    private void getEmployeeById(int employeeId)
     {
-    	Employee employee = null;
     	try
-		{
-			//TODO:// use the DAO to get the employee by ID
-    		
-    		if(employee != null)
-    		{
-    			System.out.println(employee.getId() + ":  "
-					+ employee.getDepartmentId() + "     "
-					+ employee.getFirstName() + " " + employee.getLastName() + "     "
-					+ employee.getGender() + "     "
-					+ employee.getBirthDate() + "     "
-					+ employee.getHireDate()
-					);
-    		}
-    		else 
-    		{
-				System.err.println("There is no employee with id: " + id);
+    	{
+	    	String sql = "SELECT  employee_id\r\n" + 
+	    			"        , department_id\r\n" + 
+	    			"        , first_name\r\n" + 
+	    			"        , last_name\r\n" + 
+	    			"        , birth_date\r\n" + 
+	    			"        , gender\r\n" + 
+	    			"        , hire_date\r\n" + 
+	    			"FROM employee\r\n" + 
+	    			"WHERE employee_id = ?;";
+	    	
+	    	SqlRowSet rows = jdbcTemplate.queryForRowSet(sql,employeeId); 
+	   
+	    	if (rows.next())
+	    	{
+	    		Integer departmentId = rows.getInt("department_id");
+	    		String firstName = rows.getString("first_name");
+	    		String lastName = rows.getString("last_name");
+	    		LocalDate birthDate = rows.getDate("birth_date").toLocalDate();
+	    		String gender = rows.getString("gender");
+	    		LocalDate hireDate = rows.getDate("hire_date").toLocalDate();
+	    		
+	    		System.out.println(employeeId + ":  " + departmentId + ": " + firstName + ": " + lastName + ": " + birthDate + ": " + gender + ": " + hireDate);
+	    	}
+			else 
+			{
+				System.err.println("There is no employee with id: " + employeeId);
 			}
-    		
-		} 
+    	}
     	catch (Exception e)
 		{
 			System.err.println("There was an error selecting all employees: " + e.getMessage());
 		}
+    	
     }
 
     private void searchForEmployeeByName(String firstName, String lastName)
     {
-    	List<Employee> employees = new ArrayList<Employee>();
     	try
-		{
-			//TODO: use the DAO to search for employees
-			
-			for (Employee employee : employees)
-			{
-				System.out.println(employee.getId() + ":  "
-						+ employee.getDepartmentId() + "     "
-						+ employee.getFirstName() + " " + employee.getLastName() + "     "
-						+ employee.getGender() + "     "
-						+ employee.getBirthDate() + "     "
-						+ employee.getHireDate()
-						);
-			}
-    					
-		} 
+    	{
+	    	String sql = "SELECT  employee_id\r\n" + 
+	    			"        , department_id\r\n" + 
+	    			"        , first_name\r\n" + 
+	    			"        , last_name\r\n" + 
+	    			"        , birth_date\r\n" + 
+	    			"        , gender\r\n" + 
+	    			"        , hire_date\r\n" + 
+	    			"FROM employee\r\n" + 
+	    			"WHERE first_name ILIKE ?, \r\n" + 
+	    			"        last_name ILIKE ?; ";
+	    	SqlRowSet rows = jdbcTemplate.queryForRowSet(sql,"%" + firstName + "%", "%" + lastName + "%");
+	    	
+	    	while(rows.next())
+	    	{
+	    		int employeeId = rows.getInt("employee_id");
+	    		Integer departmentId = rows.getInt("department_id");
+	    		String first_Name = rows.getString("first_name");
+	    		String last_Name = rows.getString("last_name");
+	    		LocalDate birthDate = rows.getDate("birth_date").toLocalDate();
+	    		String gender = rows.getString("gender");
+	    		LocalDate hireDate = rows.getDate("hire_date").toLocalDate();
+	    		
+	
+	    		System.out.println(employeeId + ":  " + departmentId + ": " + first_Name + ": " + last_Name + ": " + birthDate + ": " + gender + ": " + hireDate);
+	    	}
+    	
+    	}
     	catch (Exception e)
 		{
 			System.err.println("There was an error searching for employee by name:\n " + e.getMessage());
 		}
     }
 
-    private void updateEmployee(int id, Integer departmentId, String firstName, String lastName, LocalDate birthDate, String gender, LocalDate hireDate)
+    private void updateEmployee(int employeeId, Integer departmentId, String firstName, String lastName, LocalDate birthDate, String gender, LocalDate hireDate)
     {
     	try
 		{
-    		Employee employee = new Employee(id, departmentId, firstName, lastName, gender, birthDate, hireDate);
+    		String sql = "UPDATE employee\r\n" + 
+    				"SET department_id\r\n" + 
+    				"     , first_name\r\n" + 
+    				"     , last_name\r\n" + 
+    				"     , birth_date\r\n" + 
+    				"     , gender\r\n" + 
+    				"     , hire_date\r\n" + 
+    				"WHERE employee_id = ?;";
     		
-    		//TODO: use the DAO to update the employee information in the database
+    		jdbcTemplate.update(sql,departmentId, firstName, lastName, gender, birthDate, hireDate);
+    		
 		} 
     	catch (Exception e)
 		{
-			System.err.println("There was an error updating employee: " + id);
+			System.err.println("There was an error updating employee: " + employeeId);
 		}
     }
 
-    private void deleteEmployee(int id)
+    private void deleteEmployee(int employeeId)
     {
     	try
 		{
-    		//TODO: use the DAO to delete the employee from the database
+    		String sql = "DELETE FROM employee\r\n" + 
+    				"WHERE employee_id = ?;";
+    		
+    		jdbcTemplate.update(sql,employeeId);
     		    		
 		} 
     	catch (Exception e)
 		{
-			System.err.println("There was an error deleting employee: " + id);
+			System.err.println("There was an error deleting employee: " + employeeId);
 		}
     }
 

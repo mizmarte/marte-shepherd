@@ -12,7 +12,8 @@ public class AuthenticationService {
 
     private String BASE_URL;
     private RestTemplate restTemplate = new RestTemplate();
-
+    private ConsoleService console = new ConsoleService();
+    
     public AuthenticationService(String url) {
         this.BASE_URL = url;
     }
@@ -24,6 +25,7 @@ public class AuthenticationService {
         HttpEntity<LoginDTO> entity = new HttpEntity<>(loginDTO, headers);
         ResponseEntity<Map> response = null;
         try {
+        	response = restTemplate.exchange(BASE_URL + "/login", HttpMethod.POST, entity, Map.class);
         	// send login request here
         } catch(RestClientResponseException ex) {
             if (ex.getRawStatusCode() == 401 && ex.getResponseBodyAsString().length() == 0) {

@@ -1,6 +1,7 @@
 package com.techelevator.projects;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -13,7 +14,18 @@ import com.techelevator.projects.models.jdbc.JDBCDepartmentDAO;
 
 public class Part2Departments
 {
-    DepartmentDAO dao = new JDBCDepartmentDAO();
+    JdbcTemplate jdbcTemplate;
+	DepartmentDAO dao = new JDBCDepartmentDAO();
+	
+	public Part2Departments()
+	{
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/projects");
+		dataSource.setUsername("postgres");
+	    dataSource.setPassword("postgres1");
+	    
+	    jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
     public void run()
     {
@@ -77,77 +89,106 @@ public class Part2Departments
     	
     }
 
-    private void addDepartment(int id, String name)
+    private void addDepartment(int departmentId, String departmentName)
     {
-    	Department department = new Department(id, name);
     	try
 		{				
-	        dao.addDepartment(department);
+
+        	String SQL = "INSERT INTO department (department_id, name)\r\n" + 
+        							"VALUES (?,?);";
+        	jdbcTemplate.update(SQL, departmentId, departmentName);
 		} 
     	catch (Exception e)
 		{
-    		System.err.println("There was an error adding the following department --> " + id + ": " + name);
+    		System.err.println("There was an error adding the following department --> " + departmentId + ": " + departmentName);
 		}
 
     }
     
     private void getAllDepartments()
     {
-    	List<Department> departments = dao.getAllDepartments();
-        
-        for (Department department : departments)
-		{        	
-        	System.out.println(department.getId() + ": " + department.getName());
-        }
+    	String SQL = "SELECT department_id, name\r\n" + 
+    			"FROM department;";
+    	SqlRowSet rows = jdbcTemplate.queryForRowSet(SQL);
+    	while (rows.next())
+    	{
+    		int departmentId = rows.getInt("department_id");
+    		String departmentName = rows.getString("name");
+    		
+    		System.out.println(departmentId + ": " + departmentName);
+    		
+    	}	       	
+       
     }
 
-    private void getDepartmentById(int id)
+    private void getDepartmentById(int departmentId)
     {
-    	Department department = dao.getDepartment(id);
+    	String SQL = "SELECT department_id, name\r\n" + 
+    			"FROM department\r\n" + 
+    			"WHERE department_id = ?; ";
+       SqlRowSet rows = jdbcTemplate.queryForRowSet(SQL, departmentId);
        
-        if(department != null)
-        {
-        	System.out.println(department.getId() + ": " + department.getName());
-        }
+        if (rows.next())
+        	{
+        		String departmentName = rows.getString("name");
+        	
+        		System.out.println(departmentId+ ": " + departmentName);
+        	}
         else 
         {
-			System.out.println("There is no department with id: " + id);
+			System.out.println("There is no department with id: " + departmentId);
 		}
     }
 
     private void searchForDepartmentByName(String name)
     {
-    	List<Department> departments = dao.searchByName(name);
+    	String SQL = "SELECT name, department_id\r\n" + 
+    			"FROM department\r\n" + 
+    			"WHERE name ILIKE ?; ";
+    	
+    	SqlRowSet rows = jdbcTemplate.queryForRowSet(SQL, "%" + name + "%");
+    	while (rows.next())
+    	{
+    		int departmentId = rows.getInt("department_id");
+    		String departmentName = rows.getString("name");
+    		
+    		System.out.println(departmentId + ": " + departmentName);
+    		
+    	}
         
-        for (Department department : departments)
-		{        	
-        	System.out.println(department.getId() + ": " + department.getName());
-        }
     }
     
-    private void updateDepartment(int id, String name)
+    private void updateDepartment(int departmentId, String departmentName)
     {
     	try
-		{				
-	        Department department = new Department(id, name);
-	        dao.updateDepartment(id, department);
-		} 
+	    	
+    	{
+    		String SQL = "UPDATE department\r\n" + 
+    	
+    			"SET name = ? \r\n" + 
+    			"WHERE department_id = ?;";
+    			jdbcTemplate.update(SQL, departmentName, departmentId);
+    		
+    	}
+     
     	catch (Exception e)
 		{
-    		System.err.println("There was an error updating the following department --> " + id);
+    		System.err.println("There was an error updating the following department --> " + departmentId);
 		}
 
     }
 
-    private void deleteDepartment(int id)
+    private void deleteDepartment(int departmentId)
     {
     	try
-		{				
-	        dao.deleteDepartment(id);
+		{		
+    		String SQL = "DELETE FROM department\r\n" + 
+    				"WHERE department_id = ?;";
+    		jdbcTemplate.update(SQL,departmentId);
 		} 
     	catch (Exception e)
 		{
-    		System.err.println("There was an error deleting department --> " + id);
+    		System.err.println("There was an error deleting department --> " + departmentId);
 		}
     }
     

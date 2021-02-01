@@ -1,6 +1,7 @@
 package com.techelevator.services;
 
 import com.techelevator.models.Auction;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,10 @@ public class AuctionService {
     public Auction[] getAll() throws AuctionServiceException {
         Auction[] auctions = null;
         try {
+	        	HttpHeaders headers = new HttpHeaders();
+	            headers.setBearerAuth(AUTH_TOKEN);
+	            HttpEntity entity = new HttpEntity<>(headers);
+	        	auctions = restTemplate.exchange(BASE_URL + "auctions", HttpMethod.GET, makeAuthEntity(), Auction[].class).getBody();
             // send request here
         } catch (RestClientResponseException ex) {
             throw new AuctionServiceException(ex.getRawStatusCode() + " : " + ex.getResponseBodyAsString());

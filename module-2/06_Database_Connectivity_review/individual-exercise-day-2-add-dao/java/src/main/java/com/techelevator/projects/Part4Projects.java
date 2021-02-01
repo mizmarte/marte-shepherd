@@ -12,7 +12,16 @@ import com.techelevator.projects.models.jdbc.JDBCProjectDAO;
 
 public class Part4Projects
 {
-	ProjectDAO dao = new JDBCProjectDAO();
+	JdbcTemplate jdbcTemplate;
+	public Part4Projects()
+	{
+		 BasicDataSource dataSource = new BasicDataSource();
+			dataSource.setUrl("jdbc:postgresql://localhost:5432/projects");
+			dataSource.setUsername("postgres");
+	        dataSource.setPassword("postgres1");
+	        
+	        jdbcTemplate = new JdbcTemplate(dataSource);
+	}
 
     public void run()
     {
@@ -72,17 +81,23 @@ public class Part4Projects
 
     }
     
-    private void addProject(int id, String name, LocalDate startDate, LocalDate endDate)
+    private void addProject(int projectId, String projectName, LocalDate startDate, LocalDate endDate)
     {
     	try
 		{
-    		//TODO create a Project from the input parameters
+    		String sql = "INSERT INTO project (\r\n" + 
+    				"        project_id\r\n" + 
+    				"        ,name\r\n" + 
+    				"        ,from_date\r\n" + 
+    				"        ,to_date\r\n" + 
+    				"VALUES (?, ?, ?, ?) ;";
+    		jdbcTemplate.update(sql, projectId,projectName, startDate, endDate);
     		
-    		//TODO: use the dao to insert the project
+    	
 		} 
     	catch (Exception e)
 		{
-			System.err.println("There was an error inserting project: " + id);
+			System.err.println("There was an error inserting project: " + projectId);
 			System.err.println(e.getMessage());
 			System.out.println();
 		}
@@ -93,9 +108,25 @@ public class Part4Projects
     {
     	try
 		{
-			//TODO: use the DAO to get all projects
-    		
-    		//TODO: loop through the list of projects and display the details of each
+			String sql = "SELECT\r\n" + 
+					"        project_id\r\n" + 
+					"        ,name\r\n" + 
+					"        ,from_date\r\n" + 
+					"        ,to_date\r\n" + 
+					"        \r\n" + 
+					"FROM project;";
+			SqlRowSet rows = jdbcTemplate.queryForRowSet(sql);
+			
+			while (rows.next())
+			{
+				int projectId = rows.getInt("project_id");
+				String projectName = rows.getString("name");
+				LocalDate startDate = rows.getDate("from_date").toLocalDate();
+				LocalDate endDate = rows.getDate("to_date").toLocalDate();
+				
+				System.out.println(projectId + ": " + projectName + "  " + startDate + "  -  " + endDate);
+			}
+			
 		} 
     	catch (Exception e)
 		{
@@ -105,18 +136,38 @@ public class Part4Projects
 		}
     }
 
-    private void getProjectById(int id)
+    private void getProjectById(int projectId)
     {
     	try
 		{
-
-			//TODO: use the DAO to get project by id
+    		String sql = "SELECT\r\n" + 
+    				"        project_id\r\n" + 
+    				"        ,name\r\n" + 
+    				"        ,from_date\r\n" + 
+    				"        ,to_date\r\n" + 
+    				"        \r\n" + 
+    				"FROM project\r\n" + 
+    				"WHERE project_id = ?;";
     		
-    		//TODO: display the details of the selected project
+    		SqlRowSet rows = jdbcTemplate.queryForRowSet(sql,projectId);
+    		
+    		if(rows.next())
+    		{
+    			String projectName = rows.getString("name");
+    			LocalDate startDate = rows.getDate("from_date").toLocalDate();
+    			LocalDate endDate = rows.getDate("to_date").toLocalDate();
+    			
+    			System.out.println(projectId + ": " + projectName + "  " + startDate + "  -  " + endDate);
+    		}
+    		else
+    		{
+    			System.out.println("No such project with that id exists.");
+    		}
+			
 		} 
     	catch (Exception e)
 		{
-			System.err.println("There was an error getting project: " + id);
+			System.err.println("There was an error getting project: " + projectId);
 			System.err.println(e.getMessage());
 			System.out.println();
 		}

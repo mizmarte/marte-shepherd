@@ -19,7 +19,11 @@ public class LocationService {
     public Location getOne(int id) throws LocationServiceException {
         Location location = null;
         try {
-            location = restTemplate.getForObject(BASE_URL + "/" + id, Location.class);
+        	HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(AUTH_TOKEN);
+            HttpEntity entity = new HttpEntity<>(headers);
+        	
+            location = restTemplate.exchange(BASE_URL + "/" + id, HttpMethod.GET,makeAuthEntity(), Location.class).getBody();
         } catch (RestClientResponseException ex) {
             throw new LocationServiceException(ex.getRawStatusCode() + " : " + ex.getResponseBodyAsString());
         }
@@ -28,8 +32,12 @@ public class LocationService {
 
     public Location[] getAll() throws LocationServiceException {
         Location[] locations = null;
-        try {
-            locations = restTemplate.getForObject(BASE_URL, Location[].class);
+        try 
+        {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(AUTH_TOKEN);
+            HttpEntity entity = new HttpEntity<>(headers);
+        	locations = restTemplate.exchange(BASE_URL, HttpMethod.GET, makeAuthEntity(), Location[].class).getBody();
         } catch (RestClientResponseException ex) {
             throw new LocationServiceException(ex.getRawStatusCode() + " : " + ex.getResponseBodyAsString());
         }
@@ -38,6 +46,9 @@ public class LocationService {
 
     public Location add(String CSV) throws LocationServiceException {
         Location location = makeLocation(CSV);
+        if(location == null) {
+        	return null;
+        }
         try {
             location = restTemplate.postForObject(BASE_URL, makeLocationEntity(location), Location.class);
         } catch (RestClientResponseException ex) {
@@ -48,6 +59,9 @@ public class LocationService {
 
     public Location update(String CSV) throws LocationServiceException {
         Location location = makeLocation(CSV);
+        if(location == null) {
+        	return null;
+        }
         try {
             restTemplate.exchange(BASE_URL + "/" + location.getId(), HttpMethod.PUT, makeLocationEntity(location),
                     Location.class);
@@ -59,7 +73,7 @@ public class LocationService {
 
     public void delete(int id) throws LocationServiceException {
         try {
-            restTemplate.delete(BASE_URL + id);
+            restTemplate.exchange(BASE_URL + "/" + id, HttpMethod.DELETE, makeAuthEntity(), String.class);
         } catch (RestClientResponseException ex) {
             throw new LocationServiceException(ex.getRawStatusCode() + " : " + ex.getResponseBodyAsString());
         }
@@ -68,11 +82,13 @@ public class LocationService {
     private HttpEntity<Location> makeLocationEntity(Location location) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(AUTH_TOKEN);
         HttpEntity<Location> entity = new HttpEntity<>(location, headers);
         return entity;
     }
 
-    private Location makeLocation(String CSV) throws LocationServiceException {
+    private Location makeLocation(String CSV) throws LocationServiceException 
+    {
         String[] parsed = CSV.split(",");
         // invalid input
         if (parsed.length < 5 || parsed.length > 6) {
@@ -91,4 +107,11 @@ public class LocationService {
         return new Location(Integer.parseInt(parsed[0].trim()), parsed[1].trim(), parsed[2].trim(), parsed[3].trim(), parsed[4].trim(), parsed[5].trim());
     }
 
+    private HttpEntity makeAuthEntity()
+    {
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.setBearerAuth(AUTH_TOKEN);
+    	HttpEntity entity = new HttpEntity<>(headers);
+    	return entity;
+    }
 }
