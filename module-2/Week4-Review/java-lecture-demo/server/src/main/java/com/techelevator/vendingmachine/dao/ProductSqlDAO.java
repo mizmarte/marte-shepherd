@@ -82,6 +82,15 @@ public class ProductSqlDAO implements ProductDAO
 		return product;
 	}
 	
+	public void deleteProduct(int id)
+	{
+	
+		String sql = "DELETE FROM inventory\r\n" + 
+				"WHERE product_id = ?;";
+		jdbcTemplate.update(sql, id);
+		
+	}
+	
 	private Product mapRowToProduct(SqlRowSet row)
 	{
 		Product product = new Product();
@@ -95,4 +104,5 @@ public class ProductSqlDAO implements ProductDAO
     	
 		return product;
 	}
+	
 }

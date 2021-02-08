@@ -22,6 +22,28 @@ public class ProductSqlDAO implements ProductDAO
 	public List<Product> getProducts()
 	{
 		List<Product> products = new ArrayList<Product>();
+	//build the query
+		String sql = "SELECT p.product_id AS id " + 
+				"        , p.name " + 
+				"        , p.price " + 
+				"        , pt.name AS type " + 
+				"        , i.slot_id as slot " + 
+				"        , i.quantity " + 
+				"FROM product AS p " + 
+				"INNER JOIN product_type AS pt " + 
+				"        ON p.product_type_id = pt.product_type_id " + 
+				"INNER JOIN inventory AS i " + 
+				"        ON p.product_id = i.product_id";
+		
+		//execute the query
+		SqlRowSet rows =  jdbcTemplate.queryForRowSet(sql);
+		
+		while(rows.next())
+		{
+			Product product = mapRowToProduct(rows);
+			
+			products.add(product);
+		}
 		
 		return products;
 	}

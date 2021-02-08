@@ -38,11 +38,20 @@ public class VendingMachine
         	 {
         		 selectProduct();
         	 }
+        	 else if(menuSelection == 3)
+        	 {
+        		 deleteProduct();
+        	 }
+        	 else if(menuSelection == 4)
+        	 {
+        		login();
+        	 }
         	 else if(menuSelection == 0)
         	 {
         		 // exit
         		 break;
         	 }
+        	 
         	 else 
         	 {
         		 // invalid selection
@@ -76,5 +85,21 @@ public class VendingMachine
     	// display the product details of the selected product
     	UserOutput.displayProductDetails(selectedProduct);
     }
-    
+    private void deleteProduct()
+    {
+    	List<Product> products = productService.getAllProducts();    	
+    	UserOutput.displayProducts(products);
+    	// get selection from user
+    	int productId = UserInput.getProductDeletion( products);
+//    	
+//    	// call the api to get the product
+    	productService.deleteProductById(productId);
+    	UserOutput.displayProductDeletionMessage();///method - display message
+    }
+    private void login()
+    {
+    	UserInput.promptForLogin();
+    	
+    }
+
 }

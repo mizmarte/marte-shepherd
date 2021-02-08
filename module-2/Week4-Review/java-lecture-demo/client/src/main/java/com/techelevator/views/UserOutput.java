@@ -41,4 +41,9 @@ public class UserOutput
 		
 	}
 
+	public static void displayProductDeletionMessage()
+	{
+		System.out.println("The product has been deleted");
+	}
+	
 }

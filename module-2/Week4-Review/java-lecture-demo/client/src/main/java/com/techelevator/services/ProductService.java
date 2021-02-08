@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import com.techelevator.exceptions.AuthenticationServiceException;
 import com.techelevator.models.Product;
 
 public class ProductService
 {
-
+	public static String AUTH_TOKEN = "";
 	private String BASE_URL;
 	private RestTemplate restTemplate = new RestTemplate();
 
@@ -35,5 +38,11 @@ public class ProductService
 		Product product = restTemplate.getForObject(url, Product.class);
 		
 		return product;		
+	}
+	public void deleteProductById(int id) //throws AuthenticationServiceException
+	{
+		String url = BASE_URL + "/" + id;
+        	restTemplate.delete(url);
+ 	
 	}
 }

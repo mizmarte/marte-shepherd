@@ -29,7 +29,8 @@ CREATE TABLE log (
 CREATE TABLE users (
 	user_id SERIAL NOT NULL PRIMARY KEY,
 	username varchar(50) NOT NULL,
-	password_hash varchar(200) NOT NULL
+	password_hash varchar(200) NOT NULL,
+	balance money NOT NULL
 );
 
 INSERT INTO product_type (name) VALUES ('Chip');
@@ -73,4 +74,4 @@ INSERT INTO  inventory (slot_id, product_id, quantity) VALUES ('D2',14,5);
 INSERT INTO  inventory (slot_id, product_id, quantity) VALUES ('D3',15,5);
 INSERT INTO  inventory (slot_id, product_id, quantity) VALUES ('D4',16,5);
 
-INSERT INTO users (username,password_hash) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC');
+INSERT INTO users (username,password_hash, balance) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC',0);
