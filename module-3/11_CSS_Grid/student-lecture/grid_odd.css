@@ -1,0 +1,30 @@
+/* focus here is the entire page layout */
+
+div.container
+{
+    /* css3 introduces grid */
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+}
+nav{
+    grid-column-start: 1;
+    grid-row-start: 2;
+    gap: 10px;
+}
+main{
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+aside{
+    grid-column-start: 3;
+    grid-row-start: 2;
+}
+footer{
+    grid-column-start: 1;
+    grid-row-start: 3;
+    grid-column-end: 4;
+}
+header{
+    grid-column-start: 1;
+    grid-column-end: 4;  
+}
