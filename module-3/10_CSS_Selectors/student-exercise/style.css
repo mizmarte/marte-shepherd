@@ -68,10 +68,13 @@ main > header > img
   height: 120px;
   size: 80%;
 }
+
 img.banner
 {
   display: block;
   width: 100%;
+  padding-top: 20px;
+
 }
 section > div
 {
