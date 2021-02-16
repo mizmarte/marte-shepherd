@@ -9,9 +9,35 @@
  * They don't have a return type and the naming convention is camel-case.
  */
 function variables() {
+  var name = "Gregor"; //old way of declaring variables
+  let age = 46; //variable that can be changed
+  const lastName = "Dzierzon"; // can't change this variable
+
+
   // Declares a variable where the value cannot be changed
+  const daysOfTheWeek = 7;
+  console.log('There are' + daysOfTheWeek + 'days in the week');
+
+  daysOfTheWeek = 8;
+
+  const message = `There are ${daysOfTheWeek} days in the week.`;
+  console.log(message);
+
   // Declares a variable those value can be changed
+  let daysOfMonth = 30;
+  console.log(`There are ${daysOfMonth} days in the month`)
   // Declares a variable that will always be an array
+  const weekdays = [];
+  weekdays.push("Monday");
+  weekdays.push("Tuesday");
+  weekdays.push("Wednesday");
+  weekdays.push("Thursday");
+  weekdays.push("Friday");
+  weekdays.push("Saturday");
+  weekdays.push("Sunday");
+
+  console.log(weekdays);
+  console.table(weekdays);
 }
 
 /**
@@ -35,7 +61,9 @@ function printParameters(param1, param2) {
 function equality(x, y) {
   console.log(`x is ${typeof x}`);
   console.log(`y is ${typeof y}`);
-
+//x = y  - assignment
+//x == y - equality (can i convert the data types to be equal)
+//x === y - strict equality (are the data types and value the same)
   console.log(`x == y : ${x == y}`); // true
   console.log(`x === y : ${x === y}`); // false
 }
@@ -47,9 +75,12 @@ function equality(x, y) {
  * @param {Object} x The object to check for truthy or falsy,
  */
 function falsy(x) {
-  if (x) {
+  if (x) // is the value set  -- x !=null or not undefined or not equal to false or not equal to zero
+  {
     console.log(`${x} is truthy`);
-  } else {
+  } 
+  else 
+  {
     console.log(`${x} is falsy`);
   }
 }
@@ -60,7 +91,10 @@ function falsy(x) {
     - values can be arrays
     - or they can be functions
 */
-function objects() {
+function objects() 
+{
+  //JSON
+  //JavaSript Object Notation
   const person = {
     firstName: "Bill",
     lastName: "Lumbergh",
@@ -72,12 +106,22 @@ function objects() {
       "Michael Bolton"
     ]
   };
+//create empty object and add properties as you go
+  const employee = {};
+  employee.firstName = "Gregor";
+  employee.lastName = "Dzierzon";
 
   // Log the object
+  console.log(employee);
 
   // Log the first and last name
 
   // Log each employee
+  for (let i=0; i<person.employees.length;i++)
+  {
+    console.log(person.employees[i]);
+  }
+
 }
 
 /*
@@ -94,7 +138,8 @@ function Add(num1, num2) {
   return num1 + num2;
 }
 
-function Add(num1, num2, num3) {
+function Add(num1, num2, num3) 
+{
   return num1 + num2 + num3;
 }
 
@@ -113,6 +158,11 @@ function mathFunctions() {
   console.log("Math.floor(1.99) : " + Math.floor(1.99));
   console.log("Math.ceil(1.01) : " + Math.ceil(1.01));
   console.log("Math.random() : " + Math.random());
+
+  console.log('Random number between 1 and 10');
+  let number = 10*Math.random();
+  number = Math.round(number);
+  console.log(number);
 }
 
 /*
