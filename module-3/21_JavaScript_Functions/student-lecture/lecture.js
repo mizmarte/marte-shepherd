@@ -1,3 +1,14 @@
+/*
+function definition - fat arrow
+parameters
+
+array functions - uses a fat arrow function
+  for each - how to process each row
+  map - map each object to a new form (returns a new array)
+  filter - where clause return only the items that match your criteria (returns a new array)
+  reduce - aggregation function that returns a single value based on all items in the array
+*/
+
 /**
  * All named functions will have the function keyword and
  * a name followed by parentheses.
@@ -27,6 +38,10 @@ function printToConsole(value) {
  * @param {number} firstParameter the first parameter to multiply
  * @param {number} secondParameter the second parameter to multiply
  */
+  const multiplyTogether = (firstParameter, secondParameter)
+  {
+    return firstParameter * secondParameter;
+  }
 
 /**
  * This version makes sure that no parameters are ever missing. If
@@ -39,7 +54,10 @@ function printToConsole(value) {
  * @param {number} [secondParameter=0] the second parameter to multiply
  */
 
-
+const multiplyNoUndefined = (firstParameter = 0, secondParameter = 0)
+{
+  return firstParameter * secondParameter;
+}
  
 /**
  * Functions can return earlier before the end of the function. This could be useful
@@ -63,6 +81,8 @@ function returnBeforeEnd(firstParameter, secondParameter) {
   console.log("Returning firstParameter + secondParameter.");
   return firstParameter + secondParameter;
 }
+
+
 
 /**
  * Scope is defined as where a variable is available to be used.

@@ -5,7 +5,10 @@
  *
  * @returns {boolean} true
  */
-
+  function turnOn()
+  {
+    return true;
+  }
 /**
  * Create a function called returnsName.
  *
@@ -13,7 +16,10 @@
  *
  * @returns {string} your name
  */
-
+  function returnsName()
+  {
+    return "Marte Shepherd";
+  }
 /**
  * Create a function called returnGivenParameter that takes a
  * single parameter and then returns it.
