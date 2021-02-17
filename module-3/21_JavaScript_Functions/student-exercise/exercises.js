@@ -57,10 +57,11 @@ let unfilteredArray = [1, 2, 3, 4, 5, 6];
  * @param {string} [second=''] the second string of digits to concatenate
  * @returns {number} the resultant number
  */
-    function makeNumber(first, second)
-    {
+    function makeNumber(first, second='')
+    {   //does not allow should be able to take one param test to pass
         let newNumber = first.concat(second);
         concatNumber = Number(newNumber);
+        
         return concatNumber;
     }
 
@@ -71,16 +72,10 @@ let unfilteredArray = [1, 2, 3, 4, 5, 6];
  * @param {...number} num a series of numbers to add together
  * @returns {number} the sum of all the parameters (or arguments)
  */
-    const addAll = function (...num)
+    function addAll (...num)
     {
-        const answer = num.reduce((aggregate, currentNumber) => 
-        {
-            if(currentNumber == 0)
-            {
-                return 0;
-            }
-           else return aggregate + currentNumber;
-        });
+        return num.reduce((aggregate, currentNumber) => 
+        {return aggregate + currentNumber}, 0);
     
     }
 
