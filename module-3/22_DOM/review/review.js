@@ -65,3 +65,8 @@ and return an array of Customer objects
     }
 ]
 */
+
+const convertToCustomer = (names)
+{
+
+}

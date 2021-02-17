@@ -113,13 +113,16 @@ let unfilteredArray = [1, 2, 3, 4, 5, 6];
  * Use `map` and an anonymous function.
  */
 
-    function getFullAddressesOfProperties(arr)
+    function getFullAddressesOfProperties(properties)
     {
-        array2 = arr.map((item) =>
-        { const newAddress = {...item};
-            
-        })
-        return array2;
+        const addresses = properties.map((property) =>
+            {
+                const address = property.streetNumber + ' ' + property.streetName + ' ' + property.streetType + ' ' + property.city + ' ' + property.state + ' ' + property.zip;
+
+                return address;
+            });
+         return addresses;
+  
         
     }
 
@@ -129,6 +132,18 @@ let unfilteredArray = [1, 2, 3, 4, 5, 6];
  * Using `forEach`, find the largest element in an array.
  * It must work for strings and numbers.
  */
+    function findLargest(arr)
+    {
+        let largestElement = arr[0];
+        arr.forEach(element => 
+        {
+            if (element > largestElement)
+            {
+                largestElement = element;
+            }
+        });
+        return largestElement;
+    }
 
 /*
  * CHALLENGE
