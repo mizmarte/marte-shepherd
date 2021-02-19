@@ -42,6 +42,7 @@ class Team
 
     getMembers()
     {
+        //deep clone members list and return clone
         return JSON.parse(JSON.stringify(this.members));
     }
 

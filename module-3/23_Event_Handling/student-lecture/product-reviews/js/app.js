@@ -60,19 +60,29 @@ function displayReview(review) {
 
 // LECTURE STARTS HERE ---------------------------------------------------------------
 
-// set the product reviews page title
-setPageTitle();
-// set the product reviews page description
-setPageDescription();
-// display all of the product reviews on our page
-displayReviews();
+document.addEventListener('DOMContentLoaded',() => {
+    // set the product reviews page title
+    setPageTitle();
+    // set the product reviews page description
+    setPageDescription();
+    // display all of the product reviews on our page
+    displayReviews();
+    //set up the paragraph to enable toggling
+    const descriptionParagraph = document.getElementById('description');
+    descriptionParagraph.addEventListener('click', (event) =>
+    {
+      toggleDescription(event.target);//element that was clicked
+    });
+
+});
+
 
 /**
  * Take an event on the description and swap out the description for a text box.
  *
  * @param {Event} event the event object
  */
-function toggleDescriptionEdit(desc) {
+function toggleDescriptionEdit(desc) {// desc is the descripton paragraph
   const textBox = desc.nextElementSibling;
   textBox.value = description;
   textBox.classList.remove('d-none');
