@@ -28,7 +28,7 @@
         <tr class="user"
             v-for="user in filteredList"
              v-bind:key="user.id"
-             
+             v-bind:class="{ 'disabled' : user.status === 'Disabled' }"
              >
           <td>{{user.firstName}}</td>
           <td>{{user.lastName}}</td>
@@ -65,10 +65,11 @@ export default {
   },
   computed: {
     filteredList() {
+
       return this.users.filter((user) => {
         return user.firstName.toLowerCase().includes(this.filter.firstName.toLowerCase())
         && user.lastName.toLowerCase().includes(this.filter.lastName.toLowerCase())
-        && user.userame.toLowerCase().includes(this.filter.userame.toLowerCase())
+        && user.username.toLowerCase().includes(this.filter.username.toLowerCase())
         && user.emailAddress.toLowerCase().includes(this.filter.emailAddress.toLowerCase())
         && user.status.toLowerCase().includes(this.filter.status.toLowerCase())
       })
