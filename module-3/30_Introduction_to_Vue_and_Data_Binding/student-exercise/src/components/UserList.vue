@@ -22,10 +22,8 @@
             <option value="Disabled">Disabled</option>
           </select>
         </td>
-      </tr>  
-        <!--   (note to self)should disabled class go here or make user a class and iterate through
-        filtered list -->
-        <tr class="user"
+      </tr>
+      <tr class="user"
             v-for="user in filteredList"
              v-bind:key="user.id"
              v-bind:class="{ 'disabled' : user.status === 'Disabled' }"
