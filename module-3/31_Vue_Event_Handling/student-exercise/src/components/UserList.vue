@@ -65,23 +65,25 @@
     </div>
 
     <button>Add New User</button>
-
-    <form id="frmAddNewUser">
+    <!-- v-on:click.prevent="showForm"
+     v-if="formVisible === true" -->
+    <form id="frmAddNewUser" 
+     v-on:submit.prevent="saveUser"> 
       <div class="field">
         <label for="firstName">First Name:</label>
-        <input type="text" name="firstName" />
+        <input type="text" name="firstName" v-model="firstName" />
       </div>
       <div class="field">
         <label for="lastName">Last Name:</label>
-        <input type="text" name="lastName" />
+        <input type="text" name="lastName" v-model="lastName" />
       </div>
       <div class="field">
         <label for="username">Username:</label>
-        <input type="text" name="username" />
+        <input type="text" name="username" v-model="username"/>
       </div>
       <div class="field">
         <label for="emailAddress">Email Address:</label>
-        <input type="text" name="emailAddress" />
+        <input type="text" name="emailAddress" v-model="emailAddress" />
       </div>
       <button type="submit" class="btn save">Save User</button>
     </form>
@@ -101,6 +103,7 @@ export default {
         status: ""
       },
       newUser: {
+        formVisible: true,
         id: null,
         firstName: "",
         lastName: "",
@@ -160,7 +163,26 @@ export default {
       ]
     };
   },
-  methods: {},
+  methods: {
+    showForm(){
+      this.formVisible = true;
+    },
+    saveUser(){
+      this.users.push({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        username: this.username,
+        emailAddress: this.emailAddress,
+        status: "Active"
+        
+      })
+      this.clearForm()
+    },
+    clearForm(){
+      this.newUser = {};
+      this.formVisible = false;
+    },
+  },
   computed: {
     filteredList() {
       let filteredUsers = this.users;
