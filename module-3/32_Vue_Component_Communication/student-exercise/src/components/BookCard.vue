@@ -1,11 +1,12 @@
 <template>
   <div class="card" >
-      <div class="book-title">{{book.title}}</div>
-    <img>
+      <h2 class="book-title">{{book.title}}</h2>
     <img v-if="book.isbn" v-bind:src="'http://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg'" />
     
-        <div class="book-author">{{book.author}}</div>
-        <button v-on:click="toggleButton" v-bind:class="{'mark-read':!book.read, 'mark-unread':book.read}">{{bookButton}}</button>
+        <h3 class="book-author">{{book.author}}</h3>
+        
+            <button v-on:click="toggleButton" v-bind:class="{'mark-read':!book.read, 'mark-unread':book.read}">{{bookButton}}</button>
+    
   </div>
 </template>
 

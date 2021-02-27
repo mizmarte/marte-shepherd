@@ -2,23 +2,21 @@
   <div id="app">
     <h1>Reading List</h1>
     <reading-list />
-    <book-card />
     <new-book-form/>
    
   </div>
 </template>
 
 <script>
-import BookCard from './components/BookCard.vue';
-import NewBookForm from './components/NewBookForm.vue';
 import ReadingList from './components/ReadingList.vue';
+import NewBookForm from './components/NewBookForm.vue';
+
 
 
 export default {
   name: 'app',
   components: {
     ReadingList,
-    BookCard,
     NewBookForm
 
   }
