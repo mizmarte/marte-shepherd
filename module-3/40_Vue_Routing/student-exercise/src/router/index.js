@@ -6,6 +6,7 @@ import NewReleasesList from '@/components/NewReleasesList.vue'
 import ReadingList from '@/components/ReadingList.vue'
 import BookCard from '@/components/BookCard.vue'
 import NewBook from '@/views/NewBook.vue'
+import BookDetails from '@/views/BookDetails.vue'
 
 Vue.use(VueRouter);
 
@@ -41,9 +42,9 @@ const routes = [
     component: NewBook
   },
   {
-    path: '/book/$this.store.isbn',
+    path: '/book/:isbn',
     name: 'book-details',
-    component: BookCard
+    component: BookDetails
   }
   
 
