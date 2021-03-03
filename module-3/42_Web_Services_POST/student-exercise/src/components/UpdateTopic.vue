@@ -26,7 +26,7 @@ export default {
       const topic = { id: this.topicID, title: this.title };
       topicService.update(this.topicID,topic).then(response => {
         if(response.status === 200) {
-          this.$router.push("/");
+          this.$router.push(`/`);
         }
       });
     }

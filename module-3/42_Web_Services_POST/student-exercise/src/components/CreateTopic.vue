@@ -25,11 +25,16 @@ export default {
   },
   methods: {
     saveTopic() {
+      const current = this.$store.state.activeTopic
+      const topic = {
+        id: current.id,
+        title: current.title,
+      };
       topicService
         .create(this.topic)
         .then((response) => {
           if (response.status ===201){
-            this.$router.push("/");
+            this.$router.push(`/`);
           }
         })
     },

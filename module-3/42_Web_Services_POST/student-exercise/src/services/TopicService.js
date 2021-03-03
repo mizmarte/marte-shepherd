@@ -15,7 +15,7 @@ export default {
   },
 
   create (topic) {
-    return http.post(`topics`,topic);
+    return http.post(`/topics/`,topic);
   },
   update(id,topic) {
     return http.put(`/topics/${id}`,topic)

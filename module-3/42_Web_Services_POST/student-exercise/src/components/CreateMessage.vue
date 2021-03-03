@@ -36,9 +36,9 @@ export default {
         .create(this.message)
         .then((response) => {
           if (response.status ===201){
-            this.$router.push("/${message.topicId}");
+            this.$router.push(`/${this.message.topicId}`);
           }
-        })
+        });
     }
   }
 };

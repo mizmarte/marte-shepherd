@@ -36,7 +36,7 @@ export default {
       };
       messageService.update(this.messageId,message).then(response => {
         if(response.status === 200) {
-          this.$router.push("/${message.topicId}");
+          this.$router.push(`/${message.topicId}`);
         }
       });
     }
